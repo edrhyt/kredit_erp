@@ -7,6 +7,8 @@ class Admin extends CI_Controller {
 	{
 		$data['breadcrumb']="Dashboard";
 		$data['title']="Dashboard";
+		$data['drop']="";
+		$data['page']="";
 		$this->template->load('layout_main','content_default',$data);
 	}
 }

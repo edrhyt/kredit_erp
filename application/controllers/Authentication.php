@@ -5,7 +5,7 @@ class Authentication extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('auth/v_login');
+		$this->load->view('layout_auth');
 	}
 	
 	public function do_login()
@@ -27,12 +27,14 @@ class Authentication extends CI_Controller {
 									'password'  		 => $d['password'],
 									'id_user'			 => $d['id_user'],
 									'hak_akses'			 => $d['hak_akses'],
+									'no_ktp'			 => $d['no_ktp'],
+									'alamat_lengkap'	 => $d['alamat_lengkap'],
 									'email'				 => $d['email'],
-									'no_tlp'			 => $d['no_tlp'],
+									'no_hp'			 	 => $d['no_hp'],
 									'aktif'			 	 => $d['aktif'],
 									'bergabung'			 =>	$this->auth->tanggal_indo($d['bergabung']),
-									// 'img'				 => $d['img'],
-									'lokasi'			 	 => $d['lokasi'],
+									'img'				 => $d['img'],
+									'lokasi'			 => $d['lokasi'],
 			 					    );
 
 				$this->session->set_userdata($data_session);
