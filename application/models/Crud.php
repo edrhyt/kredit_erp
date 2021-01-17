@@ -68,6 +68,11 @@ class Crud extends CI_Model {
         $query = $this->db->get_where('tb_survey', array('kode_detail' =>  $kode_detail));
         return $query;
     }
+
+    function get_data_nik($nik){
+        $query = $this->db->get_where('tb_karyawan', array('nik' =>  $nik));
+        return $query;
+    }
     
     //menampilkan satu record brdasarkan parameter.
     public  function getByID($tables,$pk,$id){

@@ -60,7 +60,7 @@
                     <div class="form-group row mb-4">
                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tgl Lahir</label>
                      <div class="col-sm-12 col-md-8">
-                       <input type="date" class="form-control" name="tgl_lahir" required="">
+                       <input type="date" class="btn btn-primary daterange-btn icon-left btn-icon" name="tgl_lahir" required="">
                        <div class="invalid-feedback">
                          Silahkan lengkapi telebih dahulu
                        </div>

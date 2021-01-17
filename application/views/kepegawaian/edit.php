@@ -28,10 +28,11 @@
                  <div class="avatar-upload">
                    <div class="avatar-edit">
                      <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="berkas" />
+                     <input type="hidden" value="<?=$r['nik'];?>" name="nik">
                      <label for="imageUpload"></label>
                    </div>
                    <div class="avatar-preview">
-                     <div id="imagePreview" <?php echo'style="background-image: url('.base_url("upload/img/").''.$r['img'].');"';?>>
+                     <div id="imagePreview" <?php echo'style="background-image: url('.base_url("upload/img/default.png").');"';?>>
                      </div>
                    </div>
                    <br>
@@ -60,7 +61,7 @@
                     <div class="form-group row mb-4">
                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tgl Lahir</label>
                      <div class="col-sm-12 col-md-8">
-                       <input type="date" class="form-control" name="tgl_lahir" value="<?=$r['tgl_lahir'];?>" required="">
+                       <input type="date" class="btn btn-primary daterange-btn icon-left btn-icon" name="tgl_lahir" value="<?=$r['tgl_lahir'];?>" required="">
                        <div class="invalid-feedback">
                          Silahkan lengkapi telebih dahulu
                        </div>
@@ -97,20 +98,10 @@
                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Divisi</label>
                         <div class="col-sm-12 col-md-8" >
                             <select name="divisi" id="divisi" class="form-control selectric">
-                                <?php if($r['id_divisi'] == '1'){
-                                        echo'
-                                        <option value="" selected disabled>Marketing</option>';
-                                      }else if($r['id_divisi'] == '2'){
-                                        echo'
-                                        <option value="" selected disabled>Collection</option>';
-                                      }else if($r['id_divisi'] == '3'){
-                                        echo'
-                                        <option value="" selected disabled>Admin</option>';
-                                      }
-                                ?>
-                                <?php foreach($data->result() as $row):?>
-                                    <option value="<?php echo $row->id_divisi;?>"><?php echo $row->divisi;?></option>
-                                <?php endforeach;?>
+                              <option value="<?=$r['id_divisi'];?>" selected disabled>Pilih Divisi</option>
+                                <?php foreach ($divisi as $d) : ?>
+                                    <option <?= $r['id_divisi'] == $d['id_divisi'] ? 'selected' : ''; ?> <?= set_select('id_divisi', $d['id_divisi']) ?> value="<?= $d['id_divsi'] ?>"><?= $d['divisi'] ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
@@ -119,48 +110,9 @@
                         <div class="col-sm-12 col-md-8">
                             <select name="jabatan" id="jabatan" class="form-control selectric jabatan">
                                 <option value="<?=$r['id_jabatan'];?>" selected disabled>Pilih Jabatan</option>
-                                <?php
-                                      if($r['id_jabatan'] == '001'){
-                                        echo'
-                                        <option value="" selected>Kepala Cabang</option>';
-                                      }else if($r['id_jabatan'] == '002'){
-                                        echo'
-                                        <option value="" selected>SPV Sales (SS)</option>';
-                                      }else if($r['id_jabatan'] == '003'){
-                                        echo'
-                                        <option value="" selected>Demo Booker</option>';
-                                      }else if($r['id_jabatan'] == '004'){
-                                        echo'
-                                        <option value="" selected>Sales Promotor</option>';
-                                      }else if($r['id_jabatan'] == '005'){
-                                        echo'
-                                        <option value="" selected>Training</option>';
-                                      }else if($r['id_jabatan'] == '006'){
-                                        echo'
-                                        <option value="" selected>SPV Credit Control (CC)</option>';
-                                      }else if($r['id_jabatan'] == '007'){
-                                        echo'
-                                        <option value="" selected>Surveyor</option>';
-                                      }else if($r['id_jabatan'] == '008'){
-                                        echo'
-                                        <option value="" selected>Kolektor</option>';
-                                      }else if($r['id_jabatan'] == '009'){
-                                        echo'
-                                        <option value="" selected>Head</option>';
-                                      }else if($r['id_jabatan'] == '010'){
-                                        echo'
-                                        <option value="" selected>Staff</option>';
-                                      }else if($r['id_jabatan'] == '011'){
-                                        echo'
-                                        <option value="" selected>Driver</option>';
-                                      }else if($r['id_jabatan'] == '012'){
-                                        echo'
-                                        <option value="" selected>Helper</option>';
-                                      }else if($r['id_jabatan'] == '013'){
-                                        echo'
-                                        <option value="" selected>OB/Umum</option>';
-                                      }
-                                ?>
+                                <?php foreach ($jabatan as $j) : ?>
+                                    <option <?= $r['id_jabatan'] == $j['id_jabatan'] ? 'selected' : ''; ?> <?= set_select('id_jabatan', $j['id_jabatan']) ?> value="<?= $j['id_jabatan'] ?>"><?= $j['nama_jabatan'] ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
@@ -186,28 +138,76 @@
  <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#divisi').change(function(){
-        var id=$(this).val();
-        $.ajax({
-            url : "<?php echo base_url();?>kepegawaian/get_jabatan",
-            method : "POST",
-            data : {id: id},
-            async : false,
-            dataType : 'json',
-            success: function(data){
-                var html = '';
-                var i;
-                for(i=0; i<data.length; i++){
-                    html += '<option value='+data[i].id_jabatan+'>'+data[i].jabatan+'</option>';
+      //call function get data edit
+      get_data_edit();
+
+      $('.divisi').change(function(){ 
+          var id=$(this).val();
+          var id_jabatan = "<?php echo $id_jabatan;?>";
+          $.ajax({
+              url : "<?php echo site_url('kepegawaian/get_data_jabatan');?>",
+              method : "POST",
+              data : {id: id},
+              async : true,
+              dataType : 'json',
+              success: function(data){
+
+                  $('select[name="jabatan"]').empty();
+
+                  $.each(data, function(key, value) {
+                      if(id_jabatan==value.id_jabatan){
+                          $('select[name="jabatan"]').append('<option value="'+ value.id_jabatan +'" selected>'+ value.jabatan +'</option>').trigger('change');
+                      }else{
+                          $('select[name="jabatan"]').append('<option value="'+ value.id_jabatan +'">'+ value.jabatan +'</option>');
+                      }
+                  });
+
+              }
+          });
+          return false;
+      });
+
+      //load data for edit
+        function get_data_edit(){
+            var nik = $('[name="nik"]').val();
+            $.ajax({
+                url : "<?php echo site_url('kepegawaian/get_data_edit');?>",
+                method : "POST",
+                data :{nik :nik},
+                async : true,
+                dataType : 'json',
+                success : function(data){
+                    $.each(data, function(i, item){
+                        $('[name="divisi"]').val(data[i].id_divisi).trigger('change');
+                        $('[name="jabatan"]').val(data[i].id_jabatan).trigger('change');
+                    });
                 }
-                $('.jabatan').html(html);
-                
-            }
-        });
+
+            });
+        }
+
+      $('#divisi').change(function(){
+      var id=$(this).val();
+      $.ajax({
+          url : "<?php echo base_url();?>kepegawaian/get_jabatan",
+          method : "POST",
+          data : {id: id},
+          async : false,
+          dataType : 'json',
+          success: function(data){
+              var html = '';
+              var i;
+              for(i=0; i<data.length; i++){
+                  html += '<option value='+data[i].id_jabatan+'>'+data[i].jabatan+'</option>';
+              }
+              $('.jabatan').html(html);
+              
+          }
+      });
 
 
-    });
+  });
 
 
-    });
+});
 </script>

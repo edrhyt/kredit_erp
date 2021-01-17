@@ -238,7 +238,7 @@ class Survey extends CI_Controller {
         }else{
 			$this->session->set_flashdata("msg", $this->crud->msg_gagal('Data Survey gagal di hapus!'));
         }
-        redirect(base_url('penjualan/survey/index'));
+        redirect(base_url('survey'));
      }
 
 }

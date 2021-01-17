@@ -9,7 +9,7 @@ class Kepegawaian extends CI_Controller {
 	public function index()
 	{
 		$data['breadcrumb']="Pegawai";
-		$sql  = "SELECT * from tb_karyawan ORDER BY `id_karyawan` ASC ";
+		$sql  = "SELECT * from tb_karyawan ORDER BY `id_karyawan` DESC ";
 		$data['record_karyawan'] = $this->db->query($sql)->result();
 		$data['title']="Kepegawaian";
 		$data['drop']="";
@@ -32,6 +32,19 @@ class Kepegawaian extends CI_Controller {
 		$data=$this->m_kepegawaian->get_jabatan($id);
 		echo json_encode($data);
 	}
+
+	function get_data_jabatan($id_divisi){
+        $query = $this->db->get_where('jabatan', array('id_jabatan' => $id_jabatan	));
+        return $query;
+        var_dump($query);
+    }
+
+    function get_data_edit(){
+        $nik = $this->input->post('nik',TRUE);
+        $data = $this->crud->get_data_nik($nik)->result();
+        echo json_encode($data);
+        var_dump($data);
+    }
 
 	public function add_pegawai()
 	{
@@ -100,10 +113,10 @@ class Kepegawaian extends CI_Controller {
 			'tempat_lahir'  => $rows[0]['tempat_lahir'],
 			'tgl_lahir'  	=> $rows[0]['tgl_lahir'],
 			'no_ktp' 		=> $rows[0]['no_ktp'],
-			'alamat'  		=> $rows[0]['alamat'],
+			'alamat'  		=> $rows[0]['alamat_karyawan'],
 			'no_hp' 		=> $rows[0]['no_hp'],
-			'aktif'			=> $rows[0]['aktif'],
-			'img'			=> $rows[0]['img']
+			'aktif'			=> $rows[0]['aktif']
+			// 'img'			=> $rows[0]['img']
             );
 		$this->template->load('layout_main','kepegawaian/edit',$data);
 	}
@@ -112,23 +125,23 @@ class Kepegawaian extends CI_Controller {
 		foreach ($_POST as $key => $value) { $$key = $value; }
 		if(isset($_POST['submit']))
         {
-			$config = array(
-				'upload_path' => "./upload/img/",
-				'allowed_types' => "gif|jpg|png|jpeg|pdf",
-				'file_name' => $nama_lengkap.'-'.date('Y-m-d'),
-				'overwrite' => TRUE,
-				'max_size' => "2048000", // Can be set to particular file size , here it is 2 MB(2048 Kb)
-				'max_height' => "1500",
-				'max_width' => "1500"
-				);
+			// $config = array(
+			// 	'upload_path' => "./upload/img/",
+			// 	'allowed_types' => "gif|jpg|png|jpeg|pdf",
+			// 	'file_name' => $nama_lengkap.'-'.date('Y-m-d'),
+			// 	'overwrite' => TRUE,
+			// 	'max_size' => "2048000", // Can be set to particular file size , here it is 2 MB(2048 Kb)
+			// 	'max_height' => "1500",
+			// 	'max_width' => "1500"
+			// 	);
 
-				if (!empty($_FILES["new_img"]["name"])) {
-					$this->load->library('upload', $config);
-					$this->upload->do_upload('new_img');
-					$img = $this->upload->data("file_name");
-				} else {
-					$img = $old_img;
-				}
+			// 	if (!empty($_FILES["new_img"]["name"])) {
+			// 		$this->load->library('upload', $config);
+			// 		$this->upload->do_upload('new_img');
+			// 		$img = $this->upload->data("file_name");
+			// 	} else {
+			// 		$img = $old_img;
+			// 	}
 
 			$data = array(
 					'id_karyawan'   => $id_karyawan,
@@ -138,9 +151,9 @@ class Kepegawaian extends CI_Controller {
 					'tempat_lahir'  => $tempat_lahir,
 					'tgl_lahir'  	=> $tgl_lahir,
 					'no_ktp' 		=> $no_ktp,
-					'alamat'  		=> $alamat,
-					'no_hp' 		=> $no_hp,
-					'img'			=> $img
+					'alamat_karyawan'  		=> $alamat,
+					'no_hp' 		=> $no_hp
+					// 'img'			=> $img
 			);
 			$this->crud->update($this->table,$data, $this->pk,$id_karyawan);
 			

@@ -147,7 +147,7 @@ class SO extends CI_Controller {
         }else{
 			$this->session->set_flashdata("msg", $this->crud->msg_gagal('Data SO gagal di hapus!'));
         }
-        redirect(base_url('penjualan/surat_order/index'));
+        redirect(base_url('so'));
      }
 
     public function add_temp_dtl()
