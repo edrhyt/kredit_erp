@@ -320,6 +320,18 @@ select.form-control:not([size]):not([multiple]) {
   color: #fff;
   z-index: 1; }
 
+.selectgroup-input:focus + .selectgroup-button-absensi,
+.selectgroup-input:checked + .selectgroup-button-absensi{
+  background-color: #28a745;
+  color: #fff;
+  z-index: 1; }  
+
+.selectgroup-input:focus + .selectgroup-button-pulang,
+.selectgroup-input:checked + .selectgroup-button-pulang{
+  background-color: #6c757d;
+  color: #fff;
+  z-index: 1; }  
+
 .selectgroup-pills {
   display: block;
   flex-wrap: wrap;

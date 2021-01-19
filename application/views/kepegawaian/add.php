@@ -69,7 +69,7 @@
                    <div class="form-group row mb-4">
                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">No KTP</label>
                      <div class="col-sm-12 col-md-8">
-                       <input type="tel" class="form-control" name="no_ktp" required="">
+                       <input type="tel" class="form-control only-number" name="no_ktp" required="">
                        <div class="invalid-feedback">
                          Silahkan lengkapi telebih dahulu
                        </div>
@@ -87,7 +87,7 @@
                    <div class="form-group row mb-4">
                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">No HP</label>
                      <div class="col-sm-12 col-md-8">
-                       <input type="tel" class="form-control" name="no_hp" required="">
+                       <input type="tel" class="form-control only-number" name="no_hp" required="">
                        <div class="invalid-feedback">
                          Silahkan lengkapi telebih dahulu
                        </div>
@@ -130,31 +130,40 @@
    </div>
  </section>
 
- <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-                                            <script type="text/javascript">
-                                                $(document).ready(function() {
-                                                    $('#divisi').change(function(){
-                                                    var id=$(this).val();
-                                                    $.ajax({
-                                                        url : "<?php echo base_url();?>kepegawaian/get_jabatan",
-                                                        method : "POST",
-                                                        data : {id: id},
-                                                        async : false,
-                                                        dataType : 'json',
-                                                        success: function(data){
-                                                            var html = '';
-                                                            var i;
-                                                            for(i=0; i<data.length; i++){
-                                                                html += '<option value='+data[i].id_jabatan+'>'+data[i].jabatan+'</option>';
-                                                            }
-                                                            $('.jabatan').html(html);
-                                                            
-                                                        }
-                                                    });
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $('#divisi').change(function(){
+          var id=$(this).val();
+          $.ajax({
+              url : "<?php echo base_url();?>kepegawaian/get_jabatan",
+              method : "POST",
+              data : {id: id},
+              async : false,
+              dataType : 'json',
+              success: function(data){
+                  var html = '';
+                  var i;
+                  for(i=0; i<data.length; i++){
+                      html += '<option value='+data[i].id_jabatan+'>'+data[i].jabatan+'</option>';
+                  }
+                  $('.jabatan').html(html);
+                  
+              }
+          });
 
 
-                                                });
+      });
 
 
-                                                });
-                                            </script>
+    $(".only-number").keypress(function (e){
+      var charCode = (e.which) ? e.which : e.keyCode;
+      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+      }
+    });
+
+
+    });
+
+</script>

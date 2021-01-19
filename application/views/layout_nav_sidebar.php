@@ -2,6 +2,9 @@
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
             <a href="<?= base_url('admin')?>">TUNAS MITRA SEJAHTERA</a>
+            <a class="text-black">
+              <h2 class="my-0 text-center"><label id="hours"><?= date('H') ?></label>:<label id="minutes"><?= date('i') ?></label>:<label id="seconds"><?= date('s') ?></label></h2>
+            </a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">TMS</a>
@@ -50,3 +53,30 @@
                -->
         </aside>
       </div>
+
+<script>
+    var hoursLabel = document.getElementById("hours");
+    var minutesLabel = document.getElementById("minutes");
+    var secondsLabel = document.getElementById("seconds");
+    setInterval(setTime, 1000);
+
+    function setTime() {
+        secondsLabel.innerHTML = pad(Math.floor(new Date().getSeconds()));
+        minutesLabel.innerHTML = pad(Math.floor(new Date().getMinutes()));
+        hoursLabel.innerHTML = pad(Math.floor(new Date().getHours()));
+    }
+
+    function pad(val) {
+        var valString = val + "";
+        if (valString.length < 2) {
+            return "0" + valString;
+        } else {
+            return valString;
+        }
+    }
+
+    <?php if(@$this->session->absen_needed): ?>
+        var absenNeeded = '<?= json_encode($this->session->absen_needed) ?>';
+        <?php $this->session->sess_unset('absen_needed') ?>
+    <?php endif; ?>
+</script>
