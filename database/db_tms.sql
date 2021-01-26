@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2020 at 12:23 PM
--- Server version: 10.1.26-MariaDB
--- PHP Version: 7.1.9
+-- Generation Time: Jan 26, 2021 at 06:04 PM
+-- Server version: 10.4.16-MariaDB
+-- PHP Version: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -21,6 +20,68 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_tms`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `absensi`
+--
+
+CREATE TABLE `absensi` (
+  `id_absen` int(11) NOT NULL,
+  `tgl` date NOT NULL,
+  `waktu` time NOT NULL,
+  `keterangan` enum('Masuk','Pulang') CHARACTER SET latin1 NOT NULL,
+  `id_karyawan` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `absensi`
+--
+
+INSERT INTO `absensi` (`id_absen`, `tgl`, `waktu`, `keterangan`, `id_karyawan`) VALUES
+(34, '2021-01-19', '02:08:14', 'Masuk', 27),
+(35, '2021-01-19', '02:08:45', 'Masuk', 27),
+(36, '2021-01-19', '02:09:03', 'Masuk', 27),
+(37, '2021-01-19', '02:11:37', 'Masuk', 27),
+(38, '2021-01-19', '02:15:02', 'Masuk', 27),
+(39, '2021-01-19', '02:15:52', 'Masuk', 27),
+(40, '2021-01-19', '02:16:20', 'Masuk', 27),
+(41, '2021-01-19', '02:16:32', 'Masuk', 26),
+(42, '2021-01-19', '02:16:51', 'Masuk', 27),
+(43, '2021-01-19', '02:21:23', 'Masuk', 27),
+(44, '2021-01-19', '02:22:07', 'Pulang', 27),
+(45, '2021-01-19', '02:26:27', 'Masuk', 27),
+(46, '2021-01-19', '02:27:21', 'Masuk', 27),
+(47, '2021-01-19', '02:28:15', 'Masuk', 27),
+(48, '2021-01-19', '02:29:47', 'Masuk', 27),
+(49, '2021-01-19', '02:34:43', 'Masuk', 27),
+(50, '2021-01-19', '02:35:44', 'Masuk', 27),
+(51, '2021-01-19', '02:36:19', 'Pulang', 27),
+(52, '2021-01-19', '02:36:40', 'Pulang', 27),
+(53, '2021-01-19', '02:36:53', 'Pulang', 27),
+(54, '2021-01-19', '02:37:57', 'Pulang', 27),
+(55, '2021-01-19', '02:38:55', 'Pulang', 27),
+(56, '2021-01-19', '02:39:08', 'Pulang', 27),
+(57, '2021-01-19', '02:39:53', 'Masuk', 27),
+(58, '2021-01-19', '02:40:04', 'Masuk', 27),
+(59, '2021-01-19', '02:44:37', 'Masuk', 27),
+(60, '2021-01-19', '02:44:52', 'Masuk', 27),
+(61, '2021-01-19', '02:45:31', 'Pulang', 27),
+(62, '2021-01-19', '02:47:15', 'Pulang', 27),
+(63, '2021-01-19', '02:50:04', '', 27),
+(64, '2021-01-19', '02:50:18', '', 27),
+(65, '2021-01-19', '02:51:04', '', 27),
+(66, '2021-01-19', '02:51:34', 'Pulang', 27),
+(67, '2021-01-19', '02:52:06', 'Masuk', 27),
+(68, '2021-01-19', '02:52:20', 'Masuk', 27),
+(69, '2021-01-19', '02:53:56', 'Pulang', 27),
+(70, '2021-01-19', '02:54:10', 'Pulang', 26),
+(71, '2021-01-19', '02:54:20', 'Pulang', 26),
+(72, '2021-01-19', '02:57:17', 'Pulang', 27),
+(73, '2021-01-19', '02:57:33', 'Pulang', 26),
+(74, '2021-01-19', '02:57:54', 'Masuk', 27),
+(75, '2021-01-19', '02:58:04', 'Masuk', 26);
 
 -- --------------------------------------------------------
 
@@ -72,6 +133,19 @@ INSERT INTO `jabatan` (`id_jabatan`, `id_divisi`, `jabatan`) VALUES
 ('011', '3', 'Driver'),
 ('012', '3', 'Helper'),
 ('013', '3', 'OB/Umum');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jam`
+--
+
+CREATE TABLE `jam` (
+  `id_jam` tinyint(1) NOT NULL,
+  `start` time NOT NULL,
+  `finish` time NOT NULL,
+  `keterangan` enum('Masuk','Pulang') CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -4704,7 +4778,7 @@ INSERT INTO `kecamatan` (`id_kec`, `id_kab`, `nama_kecamatan`) VALUES
 CREATE TABLE `kelurahan` (
   `id_kel` char(10) NOT NULL,
   `id_kec` char(6) DEFAULT NULL,
-  `nama_kelurahan` tinytext,
+  `nama_kelurahan` tinytext DEFAULT NULL,
   `id_jenis` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -42092,6 +42166,28 @@ INSERT INTO `tb_barang_so` (`id_brg_so`, `kode_detail`, `nama_brg`, `merk`, `har
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_delivery`
+--
+
+CREATE TABLE `tb_delivery` (
+  `id_delivery` int(11) NOT NULL,
+  `id_surat_order` int(11) NOT NULL,
+  `id_survey` int(11) NOT NULL,
+  `id_driver` int(11) NOT NULL,
+  `id_helper` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_delivery`
+--
+
+INSERT INTO `tb_delivery` (`id_delivery`, `id_surat_order`, `id_survey`, `id_driver`, `id_helper`) VALUES
+(19, 13, 22, 24, 25),
+(20, 11, 35, 24, 25);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_inventory_barang`
 --
 
@@ -42099,8 +42195,8 @@ CREATE TABLE `tb_inventory_barang` (
   `id_barang` varchar(15) NOT NULL,
   `nama_barang` varchar(30) NOT NULL,
   `merk` varchar(15) NOT NULL,
-  `stok_akhir` int(5) NOT NULL,
-  `satuan_id` int(11) NOT NULL,
+  `stok` int(10) NOT NULL,
+  `satuan_id` varchar(10) NOT NULL,
   `kondisi_bagus` int(5) NOT NULL,
   `kondisi_jelek` int(5) NOT NULL,
   `ready_jual` int(5) NOT NULL,
@@ -42111,8 +42207,38 @@ CREATE TABLE `tb_inventory_barang` (
 -- Dumping data for table `tb_inventory_barang`
 --
 
-INSERT INTO `tb_inventory_barang` (`id_barang`, `nama_barang`, `merk`, `stok_akhir`, `satuan_id`, `kondisi_bagus`, `kondisi_jelek`, `ready_jual`, `harga`) VALUES
-('B031120001', 'DEEPWOOK STEAMER', 'MASNUMI', 0, 1, 0, 0, 0, 105000);
+INSERT INTO `tb_inventory_barang` (`id_barang`, `nama_barang`, `merk`, `stok`, `satuan_id`, `kondisi_bagus`, `kondisi_jelek`, `ready_jual`, `harga`) VALUES
+('B031120001', 'DEEPWOOK STEAMER', 'MASNUMI', 80, 'Unit', 0, 0, 0, 105000),
+('B111220001', 'KOMPOR GAS', 'MASNUMI', 40, 'Unit', 0, 0, 0, 200000),
+('B111220002', 'PRESTO 8L', 'GLASSIO', 40, 'Unit', 0, 0, 0, 325000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_inventory_keluar`
+--
+
+CREATE TABLE `tb_inventory_keluar` (
+  `id_barang_keluar` char(16) CHARACTER SET latin1 NOT NULL,
+  `barang_id` varchar(15) CHARACTER SET latin1 NOT NULL,
+  `jumlah_keluar` int(11) NOT NULL,
+  `tgl_keluar` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_inventory_keluar`
+--
+
+INSERT INTO `tb_inventory_keluar` (`id_barang_keluar`, `barang_id`, `jumlah_keluar`, `tgl_keluar`) VALUES
+('T-BK-21011700001', 'B031120001', 20, '2021-01-17');
+
+--
+-- Triggers `tb_inventory_keluar`
+--
+DELIMITER $$
+CREATE TRIGGER `update_stok_keluar` BEFORE INSERT ON `tb_inventory_keluar` FOR EACH ROW UPDATE `tb_inventory_barang` SET `tb_inventory_barang`.`stok` = `tb_inventory_barang`.`stok` - NEW.jumlah_keluar WHERE `tb_inventory_barang`.`id_barang` = NEW.barang_id
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -42128,6 +42254,23 @@ CREATE TABLE `tb_inventory_masuk` (
   `tgl_masuk` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tb_inventory_masuk`
+--
+
+INSERT INTO `tb_inventory_masuk` (`id_barang_masuk`, `supplier`, `barang_id`, `jumlah_masuk`, `tgl_masuk`) VALUES
+('T-BM-20121700001', 'Aditama', 'B111220002', 40, '2020-12-17'),
+('T-BM-21011700001', 'Aditama', 'B031120001', 100, '2021-01-17'),
+('T-BM-21011700002', 'Jianur', 'B111220001', 40, '2021-01-17');
+
+--
+-- Triggers `tb_inventory_masuk`
+--
+DELIMITER $$
+CREATE TRIGGER `update_stok_masuk` BEFORE INSERT ON `tb_inventory_masuk` FOR EACH ROW UPDATE `tb_inventory_barang` SET `tb_inventory_barang`.`stok` = `tb_inventory_barang`.`stok` + NEW.jumlah_masuk WHERE `tb_inventory_barang`.`id_barang` = NEW.barang_id
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -42142,7 +42285,7 @@ CREATE TABLE `tb_karyawan` (
   `tempat_lahir` varchar(20) NOT NULL,
   `tgl_lahir` date NOT NULL,
   `no_ktp` varchar(18) NOT NULL,
-  `alamat` varchar(50) NOT NULL,
+  `alamat_karyawan` varchar(50) NOT NULL,
   `no_hp` varchar(13) NOT NULL,
   `nik` varchar(15) NOT NULL,
   `aktif` char(1) NOT NULL,
@@ -42153,9 +42296,9 @@ CREATE TABLE `tb_karyawan` (
 -- Dumping data for table `tb_karyawan`
 --
 
-INSERT INTO `tb_karyawan` (`id_karyawan`, `id_divisi`, `id_jabatan`, `nama_lengkap`, `tempat_lahir`, `tgl_lahir`, `no_ktp`, `alamat`, `no_hp`, `nik`, `aktif`, `img`) VALUES
+INSERT INTO `tb_karyawan` (`id_karyawan`, `id_divisi`, `id_jabatan`, `nama_lengkap`, `tempat_lahir`, `tgl_lahir`, `no_ktp`, `alamat_karyawan`, `no_hp`, `nik`, `aktif`, `img`) VALUES
 (2, '3', '009', 'Rivaldi Irawan', 'Bandung', '1999-11-26', '3213032611980003', 'Bandung', '0896718765252', 'TMS221020001', 'Y', ''),
-(3, '1', '002', 'Falano Rajib', 'Bandung', '2020-10-26', '3213032611980002', 'Cianjur', '0896718765252', 'TMS261020001', 'Y', ''),
+(3, '1', '002', 'Falano Rajib', 'Bandung', '2020-10-26', '3213032611980002', 'Cianjur', '0896718765252', 'TMS261020001', 'T', ''),
 (4, '1', '002', 'Indra', 'Cianjur', '2020-10-30', '3213032611980002', 'Cianjur', '0896718765288', 'TMS301020001', 'Y', ''),
 (5, '2', '008', 'Chandra', 'Cimahi', '2020-10-30', '3213032611980007', 'sfadfSFDDF', '0896718765252', 'TMS301020001', 'Y', 'Chandra-2020-10-29.png'),
 (6, '1', '004', 'Rizal', 'Bandung', '2020-10-30', '3213032611980008', 'asdasf', '0896718765288', 'TMS301020001', 'Y', ''),
@@ -42175,7 +42318,11 @@ INSERT INTO `tb_karyawan` (`id_karyawan`, `id_divisi`, `id_jabatan`, `nama_lengk
 (20, '1', '004', 'Falano Rajib', 'Cianjur', '2020-11-04', '3213032611980008', 'sadsad', '0896718765252', 'TMS041120002', 'Y', ''),
 (21, '1', '004', 'Iqbal Ramadhan', 'Cimahi', '2020-11-04', '3213032611980002', 'afsasfafadf', '0896718765288', 'TMS041120003', 'Y', ''),
 (22, '1', '004', 'Ari', 'Cilacap', '2020-11-04', '3213032611980002', 'Cilacap', '0896718765252', 'TMS041120004', 'Y', ''),
-(23, '1', '004', 'Fandi', 'Bandung', '2020-11-05', '3213032611980003', 'bdg', '0896718765252', 'TMS051120001', 'Y', '');
+(23, '1', '004', 'Fandi', 'Bandung', '2020-11-05', '3213032611980003', 'bdg', '0896718765252', 'TMS051120001', 'Y', ''),
+(24, '3', '011', 'Agung', 'Subang', '2020-12-11', '3213032611980002', 'subang', '0896718765288', 'TMS111220001', 'Y', ''),
+(25, '3', '012', 'Cleo', 'Cianjur', '2020-12-11', '3213032611980007', 'cianjoer', '0896718765252', 'TMS111220001', 'Y', ''),
+(26, '2', '008', 'Arsene Lupin', 'Senegal', '1980-06-24', '3202202416990004', 'Senegal, Afrika', '0896718765200', 'TMS170121001', 'Y', ''),
+(27, '1', '005', 'Juliete Irene', 'Paris', '1972-02-22', '3213032611980098', 'Paris, France', '0896718765251', 'TMS170121002', 'Y', '');
 
 -- --------------------------------------------------------
 
@@ -42217,12 +42364,14 @@ CREATE TABLE `tb_surat_order` (
   `id_kab` char(4) NOT NULL,
   `id_kec` char(6) NOT NULL,
   `id_kel` char(10) NOT NULL,
-  `id_karyawan` int(11) NOT NULL,
+  `id_karyawan_sp` int(11) NOT NULL,
+  `id_karyawan_db` int(11) NOT NULL,
+  `id_karyawan_ss` int(11) NOT NULL,
   `no_surat_order` varchar(15) NOT NULL,
   `kode_detail` varchar(15) NOT NULL,
   `tgl_so` date NOT NULL,
-  `tgl_survey` date NOT NULL,
-  `tgl_kirim` date NOT NULL,
+  `tgl_s` date NOT NULL,
+  `tgl_k` date NOT NULL,
   `nama_koordinator` varchar(50) NOT NULL,
   `alamat` varchar(100) NOT NULL,
   `jml_angsuran` int(2) NOT NULL,
@@ -42239,9 +42388,12 @@ CREATE TABLE `tb_surat_order` (
 -- Dumping data for table `tb_surat_order`
 --
 
-INSERT INTO `tb_surat_order` (`id_surat_order`, `id_kab`, `id_kec`, `id_kel`, `id_karyawan`, `no_surat_order`, `kode_detail`, `tgl_so`, `tgl_survey`, `tgl_kirim`, `nama_koordinator`, `alamat`, `jml_angsuran`, `hadiah`, `diskon_koordinator`, `diskon_dp`, `total`, `netto`, `angsuran1`, `angsuran_bln`) VALUES
-(5, '3204', '320437', '3204372010', 3, 'BDG-001', 'BSO041120001', '2020-11-04', '0000-00-00', '0000-00-00', 'Yoga', 'Bandung', 7, '', '40000', '60000', 735000, 695000, 45000, 99285),
-(6, '3277', '327702', '3277021002', 3, 'BDG-002', 'BSO051120001', '2020-11-05', '0000-00-00', '0000-00-00', 'Andri', 'Lengkap', 7, '', '35000', '50000', 735000, 700000, 55000, 100000);
+INSERT INTO `tb_surat_order` (`id_surat_order`, `id_kab`, `id_kec`, `id_kel`, `id_karyawan_sp`, `id_karyawan_db`, `id_karyawan_ss`, `no_surat_order`, `kode_detail`, `tgl_so`, `tgl_s`, `tgl_k`, `nama_koordinator`, `alamat`, `jml_angsuran`, `hadiah`, `diskon_koordinator`, `diskon_dp`, `total`, `netto`, `angsuran1`, `angsuran_bln`) VALUES
+(10, '3210', '321015', '3210152005', 6, 16, 3, 'BDG-001', 'BSO091220001', '2020-12-09', '0000-00-00', '0000-00-00', 'Raihan', 'Majalengka', 6, '', '35000', '65000', 630000, 595000, 40000, 99166),
+(11, '3273', '327316', '3273161004', 21, 15, 14, 'BDG-002', 'BSO091220011', '2020-12-10', '0000-00-00', '0000-00-00', 'Andri', 'Bandung', 5, '', '40000', '20000', 525000, 485000, 85000, 97000),
+(12, '3277', '327702', '3277021002', 22, 16, 4, 'BDG-003', 'BSO091220002', '2020-12-11', '0000-00-00', '0000-00-00', 'Yoga', 'Cimahi', 8, '', '35000', '20000', 840000, 805000, 85000, 100625),
+(13, '3217', '321708', '3217082005', 23, 15, 10, 'BDG-004', 'BSO091220003', '2020-12-10', '0000-00-00', '0000-00-00', 'Adik', 'KBB', 5, '', '30000', '20000', 525000, 495000, 85000, 99000),
+(14, '3277', '327702', '3277021005', 6, 16, 3, 'BDG-006', 'BSO111220001', '2020-12-11', '0000-00-00', '0000-00-00', 'Zulkifli', 'Bandung Coret', 7, '', '35000', '50000', 735000, 700000, 55000, 100000);
 
 -- --------------------------------------------------------
 
@@ -42262,6 +42414,7 @@ CREATE TABLE `tb_survey` (
   `id_kab` char(4) NOT NULL,
   `id_kec` char(6) NOT NULL,
   `id_kel` char(10) NOT NULL,
+  `id_surveyor` int(11) NOT NULL,
   `alamat_penagihan` varchar(100) NOT NULL,
   `tgl_tempo` int(2) NOT NULL,
   `bulan_awal` varchar(15) NOT NULL,
@@ -42270,15 +42423,21 @@ CREATE TABLE `tb_survey` (
   `tgl_verifikasi` date NOT NULL,
   `kode_tolak` varchar(15) NOT NULL COMMENT 'K/TSAP/TIS/KM/PAL',
   `status` varchar(10) NOT NULL,
-  `keterangan` varchar(30) NOT NULL
+  `keterangan` varchar(30) NOT NULL,
+  `kode_delivery` varchar(15) NOT NULL,
+  `status_delivery` varchar(10) NOT NULL,
+  `keterangan_delivery` varchar(30) NOT NULL,
+  `status_petugas` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_survey`
 --
 
-INSERT INTO `tb_survey` (`id_survey`, `id_surat_order`, `no_surat_order`, `kode_detail`, `tgl_so`, `tgl_survey`, `tgl_kirim`, `nama_koordinator`, `nama_konsumen`, `id_kab`, `id_kec`, `id_kel`, `alamat_penagihan`, `tgl_tempo`, `bulan_awal`, `bulan_akhir`, `no_telp`, `tgl_verifikasi`, `kode_tolak`, `status`, `keterangan`) VALUES
-(10, 5, 'BDG-001', 'BSO041120001', '2020-11-04', '2020-11-05', '2020-11-06', 'Yoga', 'azzam', '3204', '320426', '3204262006', 'Bandung', 1, '11', '06', '089789273891', '2020-11-05', 'TSAP', 'Ditolak', 'blabalalsa');
+INSERT INTO `tb_survey` (`id_survey`, `id_surat_order`, `no_surat_order`, `kode_detail`, `tgl_so`, `tgl_survey`, `tgl_kirim`, `nama_koordinator`, `nama_konsumen`, `id_kab`, `id_kec`, `id_kel`, `id_surveyor`, `alamat_penagihan`, `tgl_tempo`, `bulan_awal`, `bulan_akhir`, `no_telp`, `tgl_verifikasi`, `kode_tolak`, `status`, `keterangan`, `kode_delivery`, `status_delivery`, `keterangan_delivery`, `status_petugas`) VALUES
+(20, 10, 'BDG-001', 'BSO091220001', '2020-12-09', '2020-12-10', '2021-01-01', 'Raihan', 'azzam', '3210', '321015', '3210152005', 13, 'Majalengka', 1, '01', '06', '089789273891', '2020-12-11', '', 'Diterima', '', '', 'Pending', '', 1),
+(22, 13, 'BDG-004', 'BSO091220003', '2020-12-10', '2020-12-11', '2020-12-12', 'Adik', 'Samuel', '3217', '321708', '3217082005', 13, 'KBB', 1, '01', '05', '081789273891', '2020-12-10', '', 'Proses', '', '', 'Proses', '', 0),
+(35, 11, 'BDG-002', 'BSO091220011', '2020-12-10', '2020-12-12', '2021-01-01', 'Andri', 'Moh. Nasuha', '3273', '327316', '3273161004', 13, 'Bandung', 11, '01', '07', '089789273833', '2020-12-11', '', 'Batal', 'DASDA', '', 'Proses', '', 0);
 
 -- --------------------------------------------------------
 
@@ -42294,6 +42453,13 @@ CREATE TABLE `tb_temp1` (
   `price` double NOT NULL,
   `qty` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_temp1`
+--
+
+INSERT INTO `tb_temp1` (`id`, `kode_detail`, `name`, `merk`, `price`, `qty`) VALUES
+(0, 'BSO111220002', 'PRESTO 8L', '', 325000, 1);
 
 -- --------------------------------------------------------
 
@@ -42318,6 +42484,12 @@ CREATE TABLE `tb_verifikasi` (
 --
 
 --
+-- Indexes for table `absensi`
+--
+ALTER TABLE `absensi`
+  ADD PRIMARY KEY (`id_absen`);
+
+--
 -- Indexes for table `divisi`
 --
 ALTER TABLE `divisi`
@@ -42328,6 +42500,12 @@ ALTER TABLE `divisi`
 --
 ALTER TABLE `jabatan`
   ADD PRIMARY KEY (`id_jabatan`);
+
+--
+-- Indexes for table `jam`
+--
+ALTER TABLE `jam`
+  ADD PRIMARY KEY (`id_jam`);
 
 --
 -- Indexes for table `kabupaten`
@@ -42366,11 +42544,27 @@ ALTER TABLE `tb_barang_so`
   ADD PRIMARY KEY (`id_brg_so`);
 
 --
+-- Indexes for table `tb_delivery`
+--
+ALTER TABLE `tb_delivery`
+  ADD PRIMARY KEY (`id_delivery`),
+  ADD UNIQUE KEY `id_survey` (`id_survey`),
+  ADD UNIQUE KEY `id_surat_order` (`id_surat_order`),
+  ADD KEY `id_driver` (`id_driver`),
+  ADD KEY `id_helper` (`id_helper`);
+
+--
 -- Indexes for table `tb_inventory_barang`
 --
 ALTER TABLE `tb_inventory_barang`
-  ADD PRIMARY KEY (`id_barang`),
-  ADD UNIQUE KEY `satuan_id` (`satuan_id`);
+  ADD PRIMARY KEY (`id_barang`);
+
+--
+-- Indexes for table `tb_inventory_keluar`
+--
+ALTER TABLE `tb_inventory_keluar`
+  ADD PRIMARY KEY (`id_barang_keluar`),
+  ADD UNIQUE KEY `barang_id` (`barang_id`);
 
 --
 -- Indexes for table `tb_inventory_masuk`
@@ -42400,7 +42594,9 @@ ALTER TABLE `tb_surat_order`
   ADD KEY `id_kab` (`id_kab`),
   ADD KEY `id_kec` (`id_kec`),
   ADD KEY `id_kel` (`id_kel`),
-  ADD KEY `id_karyawan` (`id_karyawan`);
+  ADD KEY `id_karyawan` (`id_karyawan_sp`),
+  ADD KEY `id_karyawan_db` (`id_karyawan_db`),
+  ADD KEY `id_karyawan_ss` (`id_karyawan_ss`);
 
 --
 -- Indexes for table `tb_survey`
@@ -42410,7 +42606,8 @@ ALTER TABLE `tb_survey`
   ADD UNIQUE KEY `id_surat_order` (`id_surat_order`),
   ADD UNIQUE KEY `id_kab` (`id_kab`),
   ADD UNIQUE KEY `id_kec` (`id_kec`),
-  ADD UNIQUE KEY `id_kel` (`id_kel`);
+  ADD UNIQUE KEY `id_kel` (`id_kel`),
+  ADD KEY `id_karyawan_surveyor` (`id_surveyor`);
 
 --
 -- Indexes for table `tb_verifikasi`
@@ -42423,16 +42620,34 @@ ALTER TABLE `tb_verifikasi`
 --
 
 --
+-- AUTO_INCREMENT for table `absensi`
+--
+ALTER TABLE `absensi`
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+
+--
+-- AUTO_INCREMENT for table `jam`
+--
+ALTER TABLE `jam`
+  MODIFY `id_jam` tinyint(1) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `satuan`
 --
 ALTER TABLE `satuan`
   MODIFY `id_satuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `tb_delivery`
+--
+ALTER TABLE `tb_delivery`
+  MODIFY `id_delivery` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
 -- AUTO_INCREMENT for table `tb_karyawan`
 --
 ALTER TABLE `tb_karyawan`
-  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `tb_login`
@@ -42444,13 +42659,13 @@ ALTER TABLE `tb_login`
 -- AUTO_INCREMENT for table `tb_surat_order`
 --
 ALTER TABLE `tb_surat_order`
-  MODIFY `id_surat_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_surat_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tb_survey`
 --
 ALTER TABLE `tb_survey`
-  MODIFY `id_survey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_survey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `tb_verifikasi`
@@ -42463,10 +42678,25 @@ ALTER TABLE `tb_verifikasi`
 --
 
 --
--- Constraints for table `tb_inventory_barang`
+-- Constraints for table `tb_delivery`
 --
-ALTER TABLE `tb_inventory_barang`
-  ADD CONSTRAINT `tb_inventory_barang_ibfk_1` FOREIGN KEY (`satuan_id`) REFERENCES `satuan` (`id_satuan`);
+ALTER TABLE `tb_delivery`
+  ADD CONSTRAINT `tb_delivery_ibfk_1` FOREIGN KEY (`id_surat_order`) REFERENCES `tb_surat_order` (`id_surat_order`),
+  ADD CONSTRAINT `tb_delivery_ibfk_2` FOREIGN KEY (`id_driver`) REFERENCES `tb_karyawan` (`id_karyawan`),
+  ADD CONSTRAINT `tb_delivery_ibfk_3` FOREIGN KEY (`id_helper`) REFERENCES `tb_karyawan` (`id_karyawan`),
+  ADD CONSTRAINT `tb_delivery_ibfk_7` FOREIGN KEY (`id_survey`) REFERENCES `tb_survey` (`id_survey`);
+
+--
+-- Constraints for table `tb_inventory_keluar`
+--
+ALTER TABLE `tb_inventory_keluar`
+  ADD CONSTRAINT `tb_inventory_keluar_ibfk_1` FOREIGN KEY (`barang_id`) REFERENCES `tb_inventory_barang` (`id_barang`);
+
+--
+-- Constraints for table `tb_inventory_masuk`
+--
+ALTER TABLE `tb_inventory_masuk`
+  ADD CONSTRAINT `tb_inventory_masuk_ibfk_1` FOREIGN KEY (`barang_id`) REFERENCES `tb_inventory_barang` (`id_barang`);
 
 --
 -- Constraints for table `tb_surat_order`
@@ -42475,14 +42705,17 @@ ALTER TABLE `tb_surat_order`
   ADD CONSTRAINT `tb_surat_order_ibfk_1` FOREIGN KEY (`id_kab`) REFERENCES `kabupaten` (`id_kab`),
   ADD CONSTRAINT `tb_surat_order_ibfk_2` FOREIGN KEY (`id_kec`) REFERENCES `kecamatan` (`id_kec`),
   ADD CONSTRAINT `tb_surat_order_ibfk_3` FOREIGN KEY (`id_kel`) REFERENCES `kelurahan` (`id_kel`),
-  ADD CONSTRAINT `tb_surat_order_ibfk_4` FOREIGN KEY (`id_karyawan`) REFERENCES `tb_karyawan` (`id_karyawan`);
+  ADD CONSTRAINT `tb_surat_order_ibfk_4` FOREIGN KEY (`id_karyawan_db`) REFERENCES `tb_karyawan` (`id_karyawan`),
+  ADD CONSTRAINT `tb_surat_order_ibfk_5` FOREIGN KEY (`id_karyawan_sp`) REFERENCES `tb_karyawan` (`id_karyawan`),
+  ADD CONSTRAINT `tb_surat_order_ibfk_6` FOREIGN KEY (`id_karyawan_ss`) REFERENCES `tb_karyawan` (`id_karyawan`);
 
 --
 -- Constraints for table `tb_survey`
 --
 ALTER TABLE `tb_survey`
   ADD CONSTRAINT `tb_survey_ibfk_1` FOREIGN KEY (`id_surat_order`) REFERENCES `tb_surat_order` (`id_surat_order`),
-  ADD CONSTRAINT `tb_survey_ibfk_2` FOREIGN KEY (`id_kab`) REFERENCES `kabupaten` (`id_kab`);
+  ADD CONSTRAINT `tb_survey_ibfk_2` FOREIGN KEY (`id_kab`) REFERENCES `kabupaten` (`id_kab`),
+  ADD CONSTRAINT `tb_survey_ibfk_3` FOREIGN KEY (`id_surveyor`) REFERENCES `tb_karyawan` (`id_karyawan`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
