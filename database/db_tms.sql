@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2021 at 06:04 PM
+-- Generation Time: Jan 26, 2021 at 06:08 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -42351,7 +42351,7 @@ CREATE TABLE `tb_login` (
 --
 
 INSERT INTO `tb_login` (`id_user`, `username`, `password`, `nama_lengkap`, `no_ktp`, `alamat_lengkap`, `no_hp`, `email`, `hak_akses`, `bergabung`, `aktif`, `lokasi`, `img`) VALUES
-(8, 'admin', 'bde86eb276d81ced7741f7e75b6de826', 'Rivaldi Irawan', '3213032611980001', 'Bandung', '089671875619', 'rivaldiir10@gmail.com', 'Administrator', '2020-10-22', 'Y', 'BDG', 'admin-2020-10-25.png');
+(8, 'admin', 'bde86eb276d81ced7741f7e75b6de826', 'Admin TMS', '3213032611980001', 'Bandung', '089671875619', 'rivaldiir10@gmail.com', 'Administrator', '2020-10-22', 'Y', 'BDG', 'admin-2020-10-25.png');
 
 -- --------------------------------------------------------
 
