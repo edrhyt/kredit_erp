@@ -18,7 +18,7 @@ if($this->session->userdata('id_user') <> '')
   <link rel="stylesheet" href="<?php echo base_url()?>assets/css/mystyle.css" >
 
   <!-- CSappS Libraries -->
-  <link rel="stylesheet" href="../node_modules/bootstrap-social/bootstrap-social.css">
+  <link rel="stylesheet" href="./bower_components/bootstrap-social/bootstrap-social.css">
   
 
   <!-- Template CSS -->
@@ -85,7 +85,7 @@ if($this->session->userdata('id_user') <> '')
 
   <!-- General JS Scripts -->
   <script src="<?php echo base_url()?>assets/js/jquery-3.3.1.min.js"></script>
-  <script src="<?php echo base_url()?>assets/js/popper.js/1.14.7/umd/popper.min.js" ></script>
+  <script src="<?php echo base_url()?>assets/js/popper.min.js" ></script>
   <script src="<?php echo base_url()?>assets/js/bootstrap.min.js"></script>
   <script src="<?php echo base_url()?>assets/js/jquery.nicescroll.min.js"></script>
   <script src="<?php echo base_url()?>assets/js/moment.min.js"></script>
