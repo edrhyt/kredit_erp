@@ -63,30 +63,30 @@
 					<!-- <div class="container-login100-form-btn" id="form1">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn">
-								<a href="<?= base_url('absensi/absen/masuk') ?>" <?= ($absen == 1) ? 'disabled style="cursor:not-allowed"' : '' ?>></a>
+							<button class="login100-form-btn">>
+								<a href="base_url('absensi/absen/masuk')" | ($absen == 1) ? 'disabled style="cursor:not-allowed"' : '' </a>
 								Absen Masuk
 							</button>
 						</div>
 					</div> -->
 
-					<!-- Test 1 -->
+					<!-- Button Absen Masuk -->
                     <div class="container-login100-form-btn" id="form1">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
 							<button class="login100-form-btn">
-								<a href="<?= base_url('absensi/absen/masuk') ?>"></a>
+								<a href="<?= base_url('absensi/absen/') ?>"></a>
 								Absen Masuk
 							</button>
 						</div>
 					</div>
 
-                    <!-- Test 2 -->
+                    <!-- Button Absen Pulang  -->
                     <div class="container-login100-form-btn" id="form2">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
 							<button class="login100-form-btn">
-								<a href="<?= base_url('absensi/absen/pulang') ?>"></a>
+								<a href="<?= base_url('absensi/absen/') ?>"></a>
 								Absen Pulang
 							</button>
 						</div>
@@ -147,32 +147,32 @@
 
     $(document).ready(function() {
 
-    $(".only-number").keypress(function (e){
-      var charCode = (e.which) ? e.which : e.keyCode;
-      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-        return false;
-      }
-    });
+		$(".only-number").keypress(function (e){
+		var charCode = (e.which) ? e.which : e.keyCode;
+		if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+			return false;
+		}
+		});
 
-     $(function(){
-        $('#form1').show();
-        $('#form2').hide();
-
-
-        // Test 
-        $('#absen_masuk').on('click', function(){
-            $('#form1').show();
-            $('#form2').hide();
-        });
-
-        $('#absen_pulang').on('click', function(){
-            $('#form1').hide();
-            $('#form2').show();
-        });
-    });
+		$(function(){
+			$('#masuk').val(1);
+			$('#form1').show();
+			$('#form2').hide();
 
 
+			// Test 
+			$('#absen_masuk').on('click', function(){
+				$('#masuk').val(1);
+				$('#form1').show();
+				$('#form2').hide();
+			});
 
+			$('#absen_pulang').on('click', function(){
+				$('#masuk').val(0);
+				$('#form1').hide();
+				$('#form2').show();
+			});
+		});
     });
 </script>
 

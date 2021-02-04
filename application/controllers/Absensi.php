@@ -20,127 +20,125 @@ class Absensi extends CI_Controller {
 	}
 
 	public function absen()
-    {
-  //   	foreach ($_POST as $key => $value) { $$key = $value; }
-  //   	$where = array(
-		// 	'nik' 	=> $nik
-		// 	);
-		// $absen=  $this->db->get_where('tb_karyawan',$where);
-		// if($absen->num_rows()>0 ){
-		// 	$d=  $absen->row_array();
-		// 	if ($d['aktif'] == "Y") {
-		// 			$data_session = array(
-		// 							'id_karyawan'  		 => $d['id_karyawan'],
-		// 							'id_divisi'  		 => $d['id_divisi'],
-		// 							'id_jabatan'		 => $d['id_jabatan'],
-		// 							'nama_lengkap'    	 => $d['nama_lengkap'],
-		// 							'tempat_lahir'    	 => $d['tempat_lahir'],
-		// 							'tgl_lahir'			 => $d['tgl_lahir'],
-		// 							'no_ktp'			 => $d['no_ktp'],
-		// 							'alamat_karyawan'	 => $d['alamat_karyawan'],
-		// 							'no_hp'			 	 => $d['no_hp'],
-		// 							'nik'    	 		 => $nik,
-		// 							'aktif'			 	 => $d['aktif'],
-		// 							'img'				 => $d['img'],
-		// 	 					    );
+    {		
+		$karyawan =  $this->karyawan->getKaryawan( 'nik', $_POST['nik'] );		
+		$absensi = $this->absensi->getTodayAbsensi($karyawan->row_array()[ 'id_karyawan' ]);
 
-		// 		$this->session->set_flashdata("msg", $this->crud->msg_berhasil('Berhasil Absen!'));
-  //               redirect(base_url("absensi"));
 
-		// 	}else if ($d['aktif'] == "T"){
-		// 		$this->session->set_flashdata("msg", $this->crud->msg_gagal('Karyawan Tidak Aktif'));
-		// 		redirect(base_url());
-		// 	}else{
-		// 		$this->session->set_flashdata("msg", $this->crud->msg_gagal('Gagal Absen!'));
-		// 		redirect(base_url());
-		// 	}
-		// }else{
-		// 	$this->session->set_flashdata("msg", $this->crud->msg_gagal('Gagal Absen!'));
-		// 		redirect(base_url());
-		// }
-		foreach ($_POST as $key => $value) { $$key = $value; }
-    	$where = array(
-			'nik' 	=> $nik
-			);
-		$absen=  $this->db->get_where('tb_karyawan',$where);
-		if($absen->num_rows()>0 ){
-			$d=  $absen->row_array();
-			if ($d['aktif'] == "Y") {
-					if (@$this->uri->segment(3)) {
-			            $keterangan = ucfirst($this->uri->segment(3));
-			        } else {
-			            
-			        }
-			        if ('Masuk') {
-			        	$keterangan = 'Masuk';
-			        }elsex{
-			        	$keterangan = 'Pulang';
-			        }
+		if( $karyawan->num_rows() > 0 ) {
 
-					 $data = [
-				            'tgl' => date('Y-m-d'),
-				            'waktu' => date('H:i:s'),
-				            'keterangan' => $keterangan,
-				            'id_karyawan' => $d['id_karyawan']
-				        ];
-				        $result = $this->absensi->insert_data($data);
-				        if ($result) {
-				        	$this->session->set_flashdata("msg", $this->crud->msg_berhasil('Berhasil Absen!'));
-			                redirect(base_url("absensi"));
-				            // $this->session->set_flashdata('response', [
-				            //     'status' => 'success',
-				            //     'message' => 'Absensi berhasil dicatat'
-				            // ]);
-				        } else {
-				            $this->session->set_flashdata('response', [
-				                'status' => 'error',
-				                'message' => 'Absensi gagal dicatat'
-				            ]);
-				        }
+			$data_karyawan =  $karyawan->row_array();
 
-			}else if ($d['aktif'] == "T"){
-				$this->session->set_flashdata("msg", $this->crud->msg_gagal('Karyawan Tidak Aktif'));
-				redirect(base_url("absensi"));
-			}else{
-				$this->session->set_flashdata("msg", $this->crud->msg_gagal('Gagal Absen'));
-				redirect(base_url("absensi"));
+			// var_dump($absensi->row_array());
+			if( !$absensi->num_rows() ) {
+					
+				if ($data_karyawan['aktif'] == "Y") {
+					
+					$this->catatAbsen($data_karyawan, 'masuk', $absensi);
+	
+				} else if ($data_karyawan['aktif'] == "T"){
+
+					$this->session->set_flashdata("msg", $this->crud->msg_gagal('Karyawan Tidak Aktif'));					
+					redirect(base_url("absensi"));
+
+				} else {
+
+					$this->session->set_flashdata("msg", $this->crud->msg_gagal('Gagal Absen'));
+					redirect(base_url("absensi"));
+					// var_dump($absensi);
+				}
+			} else {
+				if ( $_POST['opsi'] == '2' ){
+					$this->catatAbsen($data_karyawan, 'pulang', $absensi);
+				} else {
+
+					$s = $absensi->row_array()['masuk'];
+					$dt = new DateTime($s);
+					$date = $dt->format('d-m-Y');
+					$time = $dt->format('h:i:s A');
+	
+					
+					$this->session->set_flashdata("msg", $this->crud->msg_gagal('Anda sudah melakukan absensi pada '.$time));
+					redirect(base_url("absensi"));
+				}
 			}
-		}else{
+
+
+
+		} else {
 			$this->session->set_flashdata("msg", $this->crud->msg_gagal('NIK Karyawan Tidak Terdaftar'));
-				redirect(base_url("absensi"));
+			redirect(base_url("absensi"));
+			
 		}
-   //      if (@$this->uri->segment(3)) {
-   //          $keterangan = ucfirst($this->uri->segment(3));
-   //      } else {
-   //          $absen_harian = $this->absensi->absen_harian_karyawan($id_karyawan)->num_rows();
-   //          $keterangan = ($absen_harian < 2 && $absen_harian < 1) ? 'Masuk' : 'Pulang';
-   //      }
-
-   //      $data = [
-   //          'tgl' => date('Y-m-d'),
-   //          'waktu' => date('H:i:s'),
-   //          'keterangan' => $keterangan,
-   //          'id_karyawan' => $id_karyawan
-   //      ];
-   //      $result = $this->absensi->insert_data($data);
-   //      if ($result) {
-   //          $this->session->set_flashdata('response', [
-   //              'status' => 'success',
-   //              'message' => 'Absensi berhasil dicatat'
-   //          ]);
-   //      } else {
-   //          $this->session->set_flashdata('response', [
-   //              'status' => 'error',
-   //              'message' => 'Absensi gagal dicatat'
-   //          ]);
-   //      }
-   //      redirect('absensi');
     }
 
-    public function getNik($getId)
-    {
-        $id = encode_php_tags($getId);
-        $query = $this->karyawan->cekNik($id);
-        echo json_encode($query);
-    }
+	public function catatAbsen($karyawan, $keterangan, $absensi)
+	{
+		$data = [
+			'id_karyawan' => $karyawan['id_karyawan'],
+			$keterangan => date('Y-m-d H:i:s'),
+			];
+
+		if( $keterangan == 'masuk' ){
+
+			$result = $this->absensi->insert_data($data);
+			
+			if ($result) {
+				$this->session->set_flashdata("msg", $this->crud->msg_berhasil('Berhasil Absen!'));
+				redirect(base_url("absensi"));
+				$this->session->set_flashdata('response', [
+					'status' => 'success',
+					'message' => 'Absensi berhasil dicatat'
+				]);
+			} else {
+				$this->session->set_flashdata('response', [
+					'status' => 'error',
+					'message' => 'Absensi gagal dicatat'
+				]);
+			}
+		} elseif ( $keterangan == 'pulang' ) {
+			if( $absensi->row_array()['masuk'] ) {
+
+				if( $absensi->row_array()['pulang'] ) {
+					var_dump($absensi);
+					$s = $absensi->row_array()['pulang'];
+					$dt = new DateTime($s);
+					$date = $dt->format('d-m-Y');
+					$time = $dt->format('h:i:s A');
+
+					$this->session->set_flashdata("msg", $this->crud->msg_gagal('Anda sudah melakukan absensi pada '.$time));
+					redirect(base_url("absensi"));
+					
+				} else {
+					$result = $this->absensi->updateAbsensi($absensi->row_array()['id_absen'], $data);
+	
+					if ($result) {
+						$this->session->set_flashdata("msg", $this->crud->msg_berhasil('Berhasil Absen!'));
+						redirect(base_url("absensi"));
+						$this->session->set_flashdata('response', [
+							'status' => 'success',
+							'message' => 'Absensi berhasil dicatat'
+						]);
+					} else {
+						$this->session->set_flashdata('response', [
+							'status' => 'error',
+							'message' => 'Absensi gagal dicatat'
+						]);
+					}
+				}
+
+			} else {
+				$this->session->set_flashdata('response', [
+					'status' => 'error',
+					'message' => 'Anda belum melakukan absensi masuk'
+				]);
+			}
+			// var_dump($absensi->row_array()['masuk']);
+		} else {
+			$this->session->set_flashdata('response', [
+				'status' => 'error',
+				'message' => 'Absensi gagal dicatat'
+			]);
+		}
+	}
 }

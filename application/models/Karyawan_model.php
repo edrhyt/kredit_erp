@@ -11,6 +11,10 @@ class Karyawan_model extends CI_Model
         return $result->result();
     }
 
+    public function getKaryawan($field, $value) {
+        return $this->db->get_where('tb_karyawan', array( $field => $value ));
+    }
+
     public function find($id)
     {
         $this->db->join('divisi', 'users.divisi = divisi.id_divisi', 'LEFT');
