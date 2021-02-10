@@ -82,7 +82,7 @@
 					</div>
 
                     <!-- Button Absen Pulang  -->
-                    <div class="container-login100-form-btn" id="form2">
+                    <div class="container-login100-form-btn" id="form2" >
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
 							<button class="login100-form-btn">
@@ -91,7 +91,6 @@
 							</button>
 						</div>
 					</div>
-
 				</form>
 			</div>
 		</div>
@@ -118,6 +117,8 @@
 	<script src="<?= base_url('assets/absensi/vendor/countdowntime/countdowntime.js')?>"></script>
 <!--===============================================================================================-->
 	<script src="<?= base_url('assets/absensi/js/main.js')?>"></script>
+
+	<!-- <script>const alertIt = () => alert('d');</script> -->
 
 <script>
     var hoursLabel = document.getElementById("hours");

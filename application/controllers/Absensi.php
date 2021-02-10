@@ -29,12 +29,12 @@ class Absensi extends CI_Controller {
 
 			$data_karyawan =  $karyawan->row_array();
 
-			// var_dump($absensi->row_array());
-			if( !$absensi->num_rows() ) {
+			// cek apakah sudah ada data absensi dengan karyawan terkait
+			if( ($absensi->num_rows() == 0) && ($_POST['opsi'] == '1') ) {
 					
 				if ($data_karyawan['aktif'] == "Y") {
 					
-					$this->catatAbsen($data_karyawan, 'masuk', $absensi);
+					$this->catatAbsen($data_karyawan, 'masuk', $absensi);			
 	
 				} else if ($data_karyawan['aktif'] == "T"){
 
@@ -84,7 +84,7 @@ class Absensi extends CI_Controller {
 			$result = $this->absensi->insert_data($data);
 			
 			if ($result) {
-				$this->session->set_flashdata("msg", $this->crud->msg_berhasil('Berhasil Absen!'));
+				$this->session->set_flashdata("msg", $this->crud->msg_berhasil('Berhasil Absen '.$keterangan.'!'));
 				redirect(base_url("absensi"));
 				$this->session->set_flashdata('response', [
 					'status' => 'success',
@@ -100,7 +100,6 @@ class Absensi extends CI_Controller {
 			if( $absensi->row_array()['masuk'] ) {
 
 				if( $absensi->row_array()['pulang'] ) {
-					var_dump($absensi);
 					$s = $absensi->row_array()['pulang'];
 					$dt = new DateTime($s);
 					$date = $dt->format('d-m-Y');
@@ -113,7 +112,7 @@ class Absensi extends CI_Controller {
 					$result = $this->absensi->updateAbsensi($absensi->row_array()['id_absen'], $data);
 	
 					if ($result) {
-						$this->session->set_flashdata("msg", $this->crud->msg_berhasil('Berhasil Absen!'));
+						$this->session->set_flashdata("msg", $this->crud->msg_berhasil('Berhasil Absen '.$keterangan.'!'));
 						redirect(base_url("absensi"));
 						$this->session->set_flashdata('response', [
 							'status' => 'success',
@@ -126,14 +125,13 @@ class Absensi extends CI_Controller {
 						]);
 					}
 				}
+				var_dump($absensi->row_array()['masuk']);
+				var_dump($keterangan);
 
 			} else {
-				$this->session->set_flashdata('response', [
-					'status' => 'error',
-					'message' => 'Anda belum melakukan absensi masuk'
-				]);
+				$this->session->set_flashdata( "msg", $this->crud->msg_gagal( 'Anda belum melakukan absensi masuk' ) );
+				redirect( base_url( "absensi" ) );
 			}
-			// var_dump($absensi->row_array()['masuk']);
 		} else {
 			$this->session->set_flashdata('response', [
 				'status' => 'error',
