@@ -61,15 +61,17 @@
                         
                         $date = $masuk->format('F j, Y');
 
+                        $status = $durasi->h >= 8 ? 'good' : 'bad'; 
+
                         echo '
                           <tr>
                             <td>'.$no.'</td>
                             <td>'.$foto.'</td>
                             <td>'.$nama.'</br>'.$divisi.'</td>
                             <td>'.$date.'</td>
-                            <td>'.$masuk->format('h:i:s A').'</td>
-                            <td>'.$pulang->format('h:i:s A').'</td>
-                            <td>'.$durasi->h.' Jam '.$durasi->i.' Menit</td>
+                            <td>'.$masuk->format('h:i A').'</td>
+                            <td>'.$pulang->format('h:i A').'</td>
+                            <td class="'.$status.'">'.$durasi->h.' Jam '.$durasi->i.' Menit</td>
                           </tr>
                         ';
                         $no++;
@@ -80,7 +82,7 @@
                   </table>
                   <p>
                     <?php //var_dump($record_absensi); ?>
-                    <?php var_dump($durasi); ?>
+                    <?php //var_dump($durasi); ?>
                   </p>
                   </div>
                 </div>
