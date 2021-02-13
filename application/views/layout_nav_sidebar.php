@@ -38,7 +38,7 @@
               <li class="nav-item dropdown <?php if($drop== 'Kepegawaian'){echo'active';}?>">
                 <a href="#" class="nav-link has-dropdown"><i class="far fa-address-card"></i><span>Kepegawaian</span></a>
                 <ul class="dropdown-menu">
-                  <li class="<?php if($page== 'kepegawaian'){echo'active';}?>"><a class="nav-link" href="<?= base_url('kepegawaian')?>">Data Kepegawaian</a></li>
+                  <li class="<?php if($page== 'Kepegawaian'){echo'active';}?>"><a class="nav-link" href="<?= base_url('kepegawaian')?>">Data Kepegawaian</a></li>
                   <li class="<?php if($page== 'Absensi'){echo'active';}?>"><a class="nav-link" href="<?= base_url('data_absensi')?>">Absensi</a></li>
                 </ul>
               </li>

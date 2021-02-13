@@ -12,7 +12,7 @@ class Kepegawaian extends CI_Controller {
 		$sql  = "SELECT * from tb_karyawan ORDER BY `id_karyawan` DESC ";
 		$data['record_karyawan'] = $this->db->query($sql)->result();
 		$data['title']="Kepegawaian";
-		$data['drop']="";
+		$data['drop']="Kepegawaian";
 		$data['page']="kepegawaian";
 		$this->template->load('layout_main','kepegawaian/data_kepegawaian/index',$data);
 	}

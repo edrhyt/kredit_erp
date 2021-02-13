@@ -31,6 +31,7 @@
                       <th>Tanggal Absensi</th>
                       <th>Jam Masuk</th>
                       <th>Jam Pulang</th>
+                      <th>Durasi Kerja</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -56,6 +57,7 @@
                         
                         $masuk = new DateTime($row['masuk']);
                         $pulang = new DateTime($row['pulang']);
+                        $durasi = $masuk->diff($pulang);
                         
                         $date = $masuk->format('F j, Y');
 
@@ -67,6 +69,7 @@
                             <td>'.$date.'</td>
                             <td>'.$masuk->format('h:i:s A').'</td>
                             <td>'.$pulang->format('h:i:s A').'</td>
+                            <td>'.$durasi->h.' Jam '.$durasi->i.' Menit</td>
                           </tr>
                         ';
                         $no++;
@@ -76,7 +79,8 @@
                   </tbody>
                   </table>
                   <p>
-                    <?php var_dump($record_absensi); ?>
+                    <?php //var_dump($record_absensi); ?>
+                    <?php var_dump($durasi); ?>
                   </p>
                   </div>
                 </div>

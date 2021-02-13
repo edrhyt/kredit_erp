@@ -6,6 +6,7 @@ class Absensi_model extends CI_Model
     
     public function getAbsensi()
     {
+        $this->db->order_by('masuk', 'DESC');
         return $this->db->get('absensi')->result_array();
     }
 

@@ -17,7 +17,7 @@ class Data_Absensi extends CI_Controller {
 	{
 		$data['breadcrumb']="Absensi";
 		$data['title']="Absensi";
-		$data['drop']="";
+		$data['drop']="Kepegawaian";
 		$data['page']="Absensi";
 		
 		$record_absensi = $this->absensi->getAbsensi();
