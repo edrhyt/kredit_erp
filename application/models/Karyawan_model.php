@@ -20,7 +20,7 @@ class Karyawan_model extends CI_Model
         $this->db->join('divisi', 'users.divisi = divisi.id_divisi', 'LEFT');
         $this->db->where('id_user', $id);
         $result = $this->db->get('users');
-        return $result->row();
+        return $result->result_array();
     }
 
     public function insert_data($data)

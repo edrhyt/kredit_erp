@@ -37,16 +37,39 @@
                     <?php
 
                       $no = 1;
-                      foreach( $record_absensi as $r ) {
-                        $print = `
+                      foreach( $record_absensi as $row ) {
+                        if($row['foto']) {
+                          $foto = '<img src="'.base_url().'upload/img/'.$row['foto'].'" class="img-tbl">';
+                        } else {
+                          $foto = '<img src="'.base_url().'upload/img/default.png" class="img-tbl">';
+                        }
+
+                        $nama = $row['nama'];
+                        
+                        if($row['divisi'] == '1'){ 
+                          $divisi = '<div class="badge bg-small badge-info pd-x-8">Marketing</div>';
+                        }else if($row['divisi'] == '2') { 
+                          $divisi = '<div class="badge bg-small badge-success pd-x-8">Collection</div>'; 
+                        }else { 
+                          $divisi = '<div class="badge bg-small badge-danger pd-x-8">Administrator</div>'; 
+                        }
+                        
+                        $masuk = new DateTime($row['masuk']);
+                        $pulang = new DateTime($row['pulang']);
+                        
+                        $date = $masuk->format('F j, Y');
+
+                        echo '
                           <tr>
-                            <td>$no</td>
-                            <td>Foto</td>
-                            <td>$r</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        `;
+                            <td>'.$no.'</td>
+                            <td>'.$foto.'</td>
+                            <td>'.$nama.'</br>'.$divisi.'</td>
+                            <td>'.$date.'</td>
+                            <td>'.$masuk->format('h:i:s A').'</td>
+                            <td>'.$pulang->format('h:i:s A').'</td>
+                          </tr>
+                        ';
+                        $no++;
                       }
 
                     ?>
