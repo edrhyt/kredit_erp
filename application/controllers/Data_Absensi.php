@@ -1,20 +1,25 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Kepegawaian extends CI_Controller {
+class Data_Absensi extends CI_Controller {
 
-	var $table = "tb_karyawan";
-	var $pk = "id_karyawan";
+	var $table = "absensi";
+	var $pk = "id_absensi";
+
+	public function __construct() {
+		parent::__construct();
+        // date_default_timezone_set('Asia/Jakarta');
+		$this->load->model('Absensi_model', 'absensi');
+	}
 
 	public function index()
 	{
-		$data['breadcrumb']="Pegawai";
-		$sql  = "SELECT * from tb_karyawan ORDER BY `id_karyawan` DESC ";
-		$data['record_karyawan'] = $this->db->query($sql)->result();
-		$data['title']="Kepegawaian";
+		$data['breadcrumb']="Absensi";
+		$data['record_absensi'] = $this->absensi->getAbsensi();
+		$data['title']="Absensi";
 		$data['drop']="";
-		$data['page']="kepegawaian";
-		$this->template->load('layout_main','kepegawaian/data_kepegawaian/index',$data);
+		$data['page']="Absensi";
+		$this->template->load('layout_main', 'kepegawaian/absensi/index', $data);
 	}
 
 	function tambah_pegawai()
@@ -24,7 +29,7 @@ class Kepegawaian extends CI_Controller {
 		$data['data']=$this->m_kepegawaian->get_divisi();
 		$data['breadcrumb']="Tambah pegawai";
 		$data['title']="Tambah pegawai";
-		$this->template->load('layout_main','kepegawaian/data_kepegawaian/add',$data);
+		$this->template->load('layout_main','kepegawaian/add',$data);
 	}
 
 	function get_jabatan(){
@@ -88,12 +93,12 @@ class Kepegawaian extends CI_Controller {
 			else
 			{
 				$this->session->set_flashdata("msg", $this->crud->msg_gagal('Data Pegawai baru gagal di simpan!'));
-				redirect(base_url('kepegawaian/data_kepegawaian/tambah_pegawai'));
+				redirect(base_url('kepegawaian/tambah_pegawai'));
 			}
 			}//end if isset
   //       }else{
 		// 	$this->session->set_flashdata("msg", $this->crud->msg_gagal('Foto gagal di simpan'));
-		// 		redirect(base_url('kepegawaian/data_kepegawaian/add_karyawan'));
+		// 		redirect(base_url('kepegawaian/add_karyawan'));
 		// }
 	}
 
@@ -118,7 +123,7 @@ class Kepegawaian extends CI_Controller {
 			'aktif'			=> $rows[0]['aktif']
 			// 'img'			=> $rows[0]['img']
             );
-		$this->template->load('layout_main','kepegawaian/data_kepegawaian/edit',$data);
+		$this->template->load('layout_main','kepegawaian/edit',$data);
 	}
 
 	public function do_edit(){
@@ -162,7 +167,7 @@ class Kepegawaian extends CI_Controller {
 				redirect(base_url('kepegawaian'));
             }else{
 				$this->session->set_flashdata("msg", $this->crud->msg_gagal('Data Pegawai gagal di ubah!'));
-				redirect(base_url('kepegawaian/data_kepegawaian/edit/'.$id_user));
+				redirect(base_url('kepegawaian/edit/'.$id_user));
 			} 
 		}
 	}

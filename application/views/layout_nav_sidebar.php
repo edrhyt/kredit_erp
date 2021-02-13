@@ -34,8 +34,14 @@
                   <li class="<?php if($page== 'barang_masuk'){echo'active';}?>"><a class="nav-link" href="<?= base_url('barang_masuk')?>">Barang Masuk</a></li>
                   <li class="<?php if($page== 'barang_keluar'){echo'active';}?>"><a class="nav-link" href="<?= base_url('barang_keluar')?>">Barang Keluar</a></li>
                 </ul>
+              </li>              
+              <li class="nav-item dropdown <?php if($drop== 'Kepegawaian'){echo'active';}?>">
+                <a href="#" class="nav-link has-dropdown"><i class="far fa-address-card"></i><span>Kepegawaian</span></a>
+                <ul class="dropdown-menu">
+                  <li class="<?php if($page== 'kepegawaian'){echo'active';}?>"><a class="nav-link" href="<?= base_url('kepegawaian')?>">Data Kepegawaian</a></li>
+                  <li class="<?php if($page== 'Absensi'){echo'active';}?>"><a class="nav-link" href="<?= base_url('data_absensi')?>">Absensi</a></li>
+                </ul>
               </li>
-              <li class="<?php if($page== 'kepegawaian'){echo'active';}?>"><a class="nav-link" href="<?= base_url('kepegawaian')?>"><i class="far fa-address-card"></i> <span>Kepegawaian</span></a></li>
               <li class="<?php if($page== 'finance'){echo'active';}?>"><a class="nav-link" href="<?= base_url('finance')?>"><i class="fas fa-money-check-alt"></i> <span>Finance</span></a></li>
               <li class="nav-item dropdown <?php if($drop== 'Laporan'){echo'active';}?>">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-file-alt"></i><span>Laporan</span></a>

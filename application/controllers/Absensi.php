@@ -81,7 +81,7 @@ class Absensi extends CI_Controller {
 
 		if( $keterangan == 'masuk' ){
 
-			$result = $this->absensi->insert_data($data);
+			$result = $this->absensi->addAbsensi($data);
 			
 			if ($result) {
 				$this->session->set_flashdata("msg", $this->crud->msg_berhasil('Berhasil Absen '.$keterangan.'!'));
