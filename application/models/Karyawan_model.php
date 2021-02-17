@@ -3,12 +3,12 @@ defined('BASEPATH') OR die('No direct script access allowed!');
 
 class Karyawan_model extends CI_Model
 {
-    public function get_all()
+    public function get_all( array $fields = NULL )
     {
-        $this->db->join('divisi', 'users.divisi = divisi.id_divisi', 'LEFT');
-        $this->db->where('level', 'Karyawan');
-        $result = $this->db->get('users');
-        return $result->result();
+        if($fields){
+            $this->db->select($fields);
+        }
+        return $this->db->get('tb_karyawan')->result_array();
     }
 
     public function getKaryawan($field, $value) {

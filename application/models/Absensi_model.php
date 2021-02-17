@@ -27,6 +27,16 @@ class Absensi_model extends CI_Model
         return $result;
     }
 
+    public function getDailyAbsensi($date)
+    {
+        $this->db->query('CALL makeDailyAbsTemp("%'.date('Y-m-d', strtotime($date)).'%")');
+        $this->db->select('abs.id_absen, kar.id_karyawan, abs.masuk, abs.pulang');
+        $this->db->from('tb_karyawan as kar');
+        $this->db->join('daily_abs_temp as abs', 'kar.id_karyawan = abs.id_karyawan', 'LEFT');
+       
+        return $this->db->get();
+    }
+
     public function updateAbsensi($id, $data)
     {
         $this->db->where('id_absen', $id);

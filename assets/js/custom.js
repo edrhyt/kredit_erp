@@ -127,10 +127,12 @@ function remove_fields() {
 
 /* Table Absensi Custem Filtering */
 if ($('#page-id').html() === 'data_absensi') {
+    let karyawan;
+
     $.fn.dataTable.ext.search.push(
         (settings, data, dataIndex) => {
             const qDate = Date.parse($('#date-query').val());
-            const dDate = Date.parse(data[3]);
+            const dDate = Date.parse(data[2]);
 
 
             if (qDate == dDate || (qDate - 25200000) == dDate || isNaN(qDate)) {
@@ -141,11 +143,37 @@ if ($('#page-id').html() === 'data_absensi') {
     );
 
     $(document).ready(() => {
-        const table = $('#data-absensi').DataTable();
-        table.draw();
+        // const table = $('#data-absensi').DataTable();
+        // table.draw();
         // Event listener to the two range filtering inputs to redraw on input
         $('#date-query').on('change', () => {
             table.draw();
+        });
+
+        karyawan = new $.fn.dataTable.Karyawan({
+            ajax: "daily",
+            table: "#data-absensi",
+            fields: [{
+                label: "Nama Karyawan:",
+                name: "data.id_karyawan"
+            },]
+        });
+
+        $.ajax({
+            type: "POST",
+            url: 'daily',
+            data: {
+                'date': $('#date-query').val(),
+            },
+            success: data => {
+                karyawan = { "data": JSON.parse(data) };
+
+                // $('#data-absensi').DataTable({
+                //     ajax: 'daily',
+                // })
+                console.log(karyawan);
+            },
+            dataType: 'text'
         });
     });
 }
