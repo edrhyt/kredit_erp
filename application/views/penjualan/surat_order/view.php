@@ -19,6 +19,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        <?php //var_dump($rd); ?>
                         <div class="section-title mt-0">
                             No Surat Order :
                             <small class="text-muted"><?=$r['no_surat_order'];?></small>

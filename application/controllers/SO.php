@@ -156,8 +156,9 @@ class SO extends CI_Controller {
 	    $result[] = array(
 	        'id'	 		=> $items['id'],
 	        'kode_detail'   => $this->gencode->_Code($this->table,'kode_detail','BSO'),
+			'id_barang' 	=> $items['id_barang'],
 			'name' 			=> $items['name'],
-			// 'merk'			=> $this->input->post('merk');
+			'merk'			=> $this->input->post('merk'), 
 			'price'			=> $items['price'], 
 			'qty' 			=> $items['qty'],
 	    	);
@@ -173,6 +174,7 @@ class SO extends CI_Controller {
 		$data = array(
 			'id'	 		=> $this->input->post('id_barang'), 
 			'name' 			=> $this->input->post('nama_barang'),  
+			'merk'			=> $this->input->post('merk'), 
 			'price'			=> $this->input->post('harga'), 
 			'qty' 			=> $this->input->post('quantity'),
 		);

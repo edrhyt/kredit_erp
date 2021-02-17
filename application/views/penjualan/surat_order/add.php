@@ -23,6 +23,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Form Isian Surat Order</h4>
+                        <?php var_dump($inv); ?>
                         <div class="card-header-action">
                             <form action="<?php echo base_url('so/add_so'); ?>" method="POST" class="needs-validation" novalidate="" accept-charset="utf-8">
                             <div class="input-group">
@@ -265,8 +266,8 @@
                                 <div class="col-md-5">
                                     <div class="thumbnail">
                                         <div class="caption">
-                                            <button type="button" class="btn btn-info btn-block" disabled=""><?php echo $row->merk;?></button>
-                                            <input type="hidden" name="merk" value="<?= $row->merk;?>">
+                                            <button type="button" class="btn btn-info btn-block" disabled=""><?= $row->merk; ?></button>
+                                            <input type="hidden" name="merk" value="<?= $row->merk; ?>">
                                             <div class="card-header">
                                                 <h6><small><?php echo $row->nama_barang;?></small></h6>
                                             <div class="row">
@@ -442,7 +443,7 @@
         $.ajax({
         url : "<?php echo base_url();?>penjualan/empty_temp_dtl",
         method : "POST",
-        success :function(data){
+        success : function(data){
           console.log("sukses");
         }
       });

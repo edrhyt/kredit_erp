@@ -1,9 +1,9 @@
 // $(document).ready(function() {
 $('.data-table1').DataTable();
 
-$('.data-table2').DataTable( {
-    "order": [[ 0, "desc" ]]
-} );
+$('.data-table2').DataTable({
+    "order": [[0, "desc"]]
+});
 
 window.setTimeout(function () {
     $(".alert").slideDown(500, 0).slideUp(500, function () {
@@ -84,13 +84,13 @@ $("#imageUpload").change(function () {
 // tabel multi
 
 var i = 1;
-var $no =  parseInt($('#addr0s').html()); 
+var $no = parseInt($('#addr0s').html());
 $("#add_row").click(function () {
     b = i - 1;
     $('#addr' + i).html($('#addr' + b).html()).find('td:first-child').html($no + i);
     $('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
     $('#tab_logic').append('')
-  
+
     i++;
 });
 
@@ -98,7 +98,7 @@ $("#delete_row").click(function () {
     if (i > 1) {
         $("#addr" + (i - 1)).html('');
         i--;
-    }else{
+    } else {
         $('#addr').remove();
     };
 });
@@ -109,18 +109,44 @@ function education_fields() {
     room++;
     var objTo = document.getElementById('education_fields')
     var divtest = document.createElement("div");
-	divtest.setAttribute("class", "form-group removeclass"+room);
-	var rdiv = 'removeclass'+room;
-    divtest.innerHTML = '<div class="input-group mb-3"><input type="text" class="form-control" name="nama_konsumen[]" aria-label=""><div class="input-group-append"><button class="btn btn-icon btn-danger icon-left" type="button"  onclick="remove_education_fields('+ room +');"><i class="fas fa-minus"></i></button></div></div>';
-    
+    divtest.setAttribute("class", "form-group removeclass" + room);
+    var rdiv = 'removeclass' + room;
+    divtest.innerHTML = '<div class="input-group mb-3"><input type="text" class="form-control" name="nama_konsumen[]" aria-label=""><div class="input-group-append"><button class="btn btn-icon btn-danger icon-left" type="button"  onclick="remove_education_fields(' + room + ');"><i class="fas fa-minus"></i></button></div></div>';
+
     objTo.appendChild(divtest)
 }
-   function remove_education_fields(rid) {
-	   $('.removeclass'+rid).remove();
-   }
+function remove_education_fields(rid) {
+    $('.removeclass' + rid).remove();
+}
 
-   function remove_fields() {
+function remove_fields() {
     $('#removeclass').remove();
-    }
+}
 
 "use strict";
+
+/* Table Absensi Custem Filtering */
+if ($('#page-id').html() === 'data_absensi') {
+    $.fn.dataTable.ext.search.push(
+        (settings, data, dataIndex) => {
+            const qDate = Date.parse($('#date-query').val());
+            const dDate = Date.parse(data[3]);
+
+
+            if (qDate == dDate || (qDate - 25200000) == dDate || isNaN(qDate)) {
+                return true;
+            }
+            return false;
+        }
+    );
+
+    $(document).ready(() => {
+        const table = $('#data-absensi').DataTable();
+        table.draw();
+        // Event listener to the two range filtering inputs to redraw on input
+        $('#date-query').on('change', () => {
+            table.draw();
+        });
+    });
+}
+/* End of Custom Filtering */
