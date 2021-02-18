@@ -54,7 +54,30 @@ class Data_Absensi extends CI_Controller {
 		if(isset($_POST['date'])) {
 			$date = strtotime($_POST['date']);
 			$results = $this->absensi->getDailyAbsensi(date('Y-m-d', $date))->result_array();
-			$json = json_encode($results);
+
+			/* Normalize Array to return as JSON */
+			$i = 0;
+			foreach($results as $res) {
+				$results[$i]['no'] = $i+1;
+				$results[$i]['nama'] = $this->karyawan->getKaryawan(
+					'id_karyawan', 
+					$res['id_karyawan'])
+					->result_array()[0]['nama_lengkap'];
+				$results[$i]['divisi'] = $this->karyawan->getKaryawan(
+					'id_karyawan', 
+					$res['id_karyawan'])
+					->result_array()[0]['id_divisi'];
+				$i++;
+			}
+			unset($i);
+			$final['draw'] = 1;
+			$final['recordsDate'] = $_POST['date'];
+			$final['recordsTotal'] = count($results);
+			$final['recordsFiltered'] = count($results);
+			$final['data'] = $results;
+			/* End of Normalize Array to return as JSON */
+
+			$json = json_encode($final);
 
 			if ($json === false) {
 				// Avoid echo of empty string (which is invalid JSON), and

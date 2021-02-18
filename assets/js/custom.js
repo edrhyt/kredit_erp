@@ -127,54 +127,85 @@ function remove_fields() {
 
 /* Table Absensi Custem Filtering */
 if ($('#page-id').html() === 'data_absensi') {
-    let karyawan;
-
-    $.fn.dataTable.ext.search.push(
-        (settings, data, dataIndex) => {
-            const qDate = Date.parse($('#date-query').val());
-            const dDate = Date.parse(data[2]);
+    // $.fn.dataTable.ext.search.push(
+    //     (settings, data, dataIndex) => {
+    //         const qDate = Date.parse($('#date-query').val());
+    //         const dDate = Date.parse(data[2]);
 
 
-            if (qDate == dDate || (qDate - 25200000) == dDate || isNaN(qDate)) {
-                return true;
-            }
-            return false;
-        }
-    );
+    //         if (qDate == dDate || (qDate - 25200000) == dDate || isNaN(qDate)) {
+    //             return true;
+    //         }
+    //         return false;
+    //     }
+    // );
 
     $(document).ready(() => {
-        // const table = $('#data-absensi').DataTable();
+        const table = $('#data-absensi').DataTable({
+            serverSide: true,
+            stateSave: true,
+            ajax: {
+                url: 'data_absensi/daily',
+                type: 'POST',
+                data: {
+                    'date': '2021-02-13',
+                },
+                dataSrc: '',
+            },
+            columns: [
+                { data: 'no' },
+                { data: 'nama' },
+                { data: 'id_absen' },
+                { data: 'masuk' },
+                { data: 'pulang' },
+                { data: 'id_karyawan' },
+                { data: 'divisi' },
+            ],
+        });
         // table.draw();
-        // Event listener to the two range filtering inputs to redraw on input
-        $('#date-query').on('change', () => {
-            table.draw();
-        });
 
-        karyawan = new $.fn.dataTable.Karyawan({
-            ajax: "daily",
-            table: "#data-absensi",
-            fields: [{
-                label: "Nama Karyawan:",
-                name: "data.id_karyawan"
-            },]
-        });
+        // Event listener to redraw on input
+        // $('#date-query').on('change', () => {
+        //     table.draw();
+        // });
 
+        /*
         $.ajax({
             type: "POST",
-            url: 'daily',
+            url: 'data_absensi/daily',
             data: {
                 'date': $('#date-query').val(),
             },
             success: data => {
-                karyawan = { "data": JSON.parse(data) };
+                let karyawan = JSON.parse(data);
 
-                // $('#data-absensi').DataTable({
-                //     ajax: 'daily',
+                table.columns().data(karyawan);
+                table.columns([
+                    { data: 'no' },
+                    { data: 'nama' },
+                    { data: 'tanggal' },
+                    { data: 'masuk' },
+                    { data: 'pulang' },
+                    { data: 'durasi' },
+                ]);
+                table.draw();
+
+                // var table = $('#data-absensi').DataTable({
+                //     data: karyawan,
+                //     columns: [
+                //         { data: 'no' },
+                //         { data: 'nama' },
+                //         { data: 'tanggal' },
+                //         { data: 'masuk' },
+                //         { data: 'pulang' },
+                //         { data: 'durasi' },
+                //     ]
                 // })
                 console.log(karyawan);
             },
             dataType: 'text'
         });
+        */
     });
 }
 /* End of Custom Filtering */

@@ -24,24 +24,24 @@
                   <div class="clearfix mb-3"></div>
                   <div class="input-group d-flex flex-column">
                     <label for="date-query">Pilih Tanggal: </label>
-                    <input type="date" class="btn btn-primary daterange-btn icon-left btn-icon mb-4" name="date-query" id="date-query" value="<?= date('Y-m-d'); ?>">
+                    <input type="date" class="btn btn-primary daterange-btn icon-left btn-icon mb-4" name="date-query" id="date-query">
                   </div>
                   <div class="table-responsive">
                   <?php //var_dump($record_daily); ?>
                     <table class="table table-striped table-bordered table-hover" id="data-absensi">
                       <thead>
-                        <!-- <tr>
+                        <tr>
                           <th>No</th>
                           <th>Nama Karyawan</th>
                           <th>Tanggal Absensi</th>
                           <th>Jam Masuk</th>
                           <th>Jam Pulang</th>
                           <th>Durasi Kerja</th>
-                        </tr> -->
+                          <th>Durasi Kerja</th>
+                        </tr>
                       </thead>
-                      <tbody>
-                        <!-- Data Absensi -->
-                      </tbody>
+                      <!-- <tbody>
+                      </tbody> -->
                     </table>           
                   </div>
                 </div>
