@@ -27,7 +27,18 @@
                     <input type="date" class="btn btn-primary daterange-btn icon-left btn-icon mb-4" name="date-query" id="date-query">
                   </div>
                   <div class="table-responsive absensi" id="data-absensi">
-                    <input class="search form-control" placeholder="Search" />
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-2 p-0 d-flex">
+                          <a href="<?= base_url(); ?>" target="_blank" rel="noopener noreferrer" id="get-laporan">
+                            <button class="btn btn-danger w-100 h-100 mr-4" id="cetak-laporan">Cetak Laporan</button>
+                          </a>
+                        </div>
+                        <div class="col-md-10 p-0 d-flex">
+                          <input class="search form-control" placeholder="Search" />
+                        </div>
+                      </div>
+                    </div>
                     <table class="table table-striped table-bordered table-hover mt-4">
                       <thead>
                         <tr>

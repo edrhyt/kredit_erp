@@ -3,6 +3,7 @@ if ($('#page-id').html() === 'data_absensi') {
     var pdfData = [];
 
     $(document).ready(() => {
+        const baseUrl = $('#get-laporan').attr('href');
         const options = {
             valueNames: [
                 'no',
@@ -16,7 +17,7 @@ if ($('#page-id').html() === 'data_absensi') {
 
         const absensiList = new List('data-absensi', options);
 
-        $('#date-query').on('change', () => {
+        const updateAbsensiList = () => {
             absensiList.clear();
 
             $.ajax({
@@ -51,7 +52,17 @@ if ($('#page-id').html() === 'data_absensi') {
                 },
                 dataType: 'text',
             });
+        }
+
+        $('#date-query').on('change', () => {
+            updateAbsensiList();
+            $('#get-laporan').attr('href', baseUrl + 'data_absensi/laporan?date=' + $('#date-query').val());
         });
+
+        $('#date-query').val(new Date().toISOString().slice(0, 10));
+
+        updateAbsensiList();
+        $('#get-laporan').attr('href', baseUrl + 'data_absensi/laporan?date=' + $('#date-query').val());
     });
 }
 /* End of Custom Filtering */
