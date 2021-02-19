@@ -26,22 +26,29 @@
                     <label for="date-query">Pilih Tanggal: </label>
                     <input type="date" class="btn btn-primary daterange-btn icon-left btn-icon mb-4" name="date-query" id="date-query">
                   </div>
-                  <div class="table-responsive">
-                  <?php //var_dump($record_daily); ?>
-                    <table class="table table-striped table-bordered table-hover" id="data-absensi">
+                  <div class="table-responsive absensi" id="data-absensi">
+                    <input class="search form-control" placeholder="Search" />
+                    <table class="table table-striped table-bordered table-hover mt-4">
                       <thead>
                         <tr>
-                          <th>No</th>
-                          <th>Nama Karyawan</th>
-                          <th>Tanggal Absensi</th>
-                          <th>Jam Masuk</th>
-                          <th>Jam Pulang</th>
-                          <th>Durasi Kerja</th>
-                          <th>Durasi Kerja</th>
+                          <th class="sort" data-sort="no">No</th>
+                          <th class="sort" data-sort="nama">Nama Karyawan</th>
+                          <th class="sort" data-sort="tanggal">Tanggal Absensi</th>
+                          <th class="sort" data-sort="masuk">Jam Masuk</th>
+                          <th class="sort" data-sort="pulang">Jam Pulang</th>
+                          <th class="sort" data-sort="durasi">Durasi Kerja</th>
                         </tr>
                       </thead>
-                      <!-- <tbody>
-                      </tbody> -->
+                      <tbody class="list">
+                        <tr>
+                          <td class="no"></td>
+                          <td class="nama"></td>
+                          <td class="tanggal"></td>
+                          <td class="masuk"></td>
+                          <td class="pulang"></td>
+                          <td class="durasi"></td>
+                        </tr>
+                      </tbody>
                     </table>           
                   </div>
                 </div>

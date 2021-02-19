@@ -58,22 +58,34 @@ class Data_Absensi extends CI_Controller {
 			/* Normalize Array to return as JSON */
 			$i = 0;
 			foreach($results as $res) {
+				$masuk = new DateTime($res['masuk']);
+				$pulang = new DateTime($res['pulang']);
+				$durasi = $pulang->diff($masuk);
+
+				if($res['masuk'] != NULL) $results[$i]['masuk'] =  date('g:i A', strtotime($res['masuk']));
+				if($res['pulang'] != NULL) $results[$i]['pulang'] =  date('g:i A', strtotime($res['pulang']));
+
+				$results[$i]['durasi'] = array('jam' => $durasi->h, 'menit' => $durasi->i);
+
 				$results[$i]['no'] = $i+1;
+
 				$results[$i]['nama'] = $this->karyawan->getKaryawan(
 					'id_karyawan', 
 					$res['id_karyawan'])
 					->result_array()[0]['nama_lengkap'];
+
 				$results[$i]['divisi'] = $this->karyawan->getKaryawan(
 					'id_karyawan', 
 					$res['id_karyawan'])
 					->result_array()[0]['id_divisi'];
+				
+				$durasi->h < 8 ? $results[$i]['keterangan'] = 'bad' : $results[$i]['keterangan'] = 'good';
+
 				$i++;
 			}
 			unset($i);
-			$final['draw'] = 1;
-			$final['recordsDate'] = $_POST['date'];
+			$final['recordsDate'] = date('j F, Y', strtotime($_POST['date']));
 			$final['recordsTotal'] = count($results);
-			$final['recordsFiltered'] = count($results);
 			$final['data'] = $results;
 			/* End of Normalize Array to return as JSON */
 

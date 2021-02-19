@@ -69,11 +69,14 @@ if($this->session->userdata('id_user') == '')
 
   <!-- JS Libraies -->
   <script src="<?= base_url('assets/plugin/datatable/jquery.dataTables.min.js')?>"></script>
-  <script src="<?= base_url('assets/plugin/datatable/dataTables.bootstrap4.min.js')?>"></script>
+  <script src="<?= base_url('assets/plugin/datatable/dataTables.bootstrap4.min.js')?>"></script>  
+  <script src="<?= base_url('assets/js/list.min.js')?>"></script>
+  <script type="module" src="<?= base_url('assets/js/jspdf.js')?>"></script>
 
   <!-- Template JS File -->
   <script src="<?= base_url('assets/js/scripts.js')?>"></script>
   <script src="<?= base_url('assets/js/custom.js')?>"></script>
+  <script type="module" src="<?= base_url('assets/js/absensi.js')?>"></script>
 
   <script>
     $(document).ready(function() {
