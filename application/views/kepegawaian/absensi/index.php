@@ -2,8 +2,8 @@
         <p id="page-id" style="display: none;"><?= $this->uri->segment(1); ?></p>
         <div class="section-header">
           <h1><?= $breadcrumb; ?></h1>
-          <!-- <div class="section-header-button">
-          </div> -->
+          <div class="section-header-button">
+            <input type="date" class="btn btn-danger daterange-btn icon-left btn-icon" name="date-query" id="date-query">          </div>
           <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="<?php echo base_url('admin');?>">Dashboard</a></div>
             <div class="breadcrumb-item"><?= $breadcrumb; ?></div>
@@ -22,20 +22,16 @@
                 </div>
                 <div class="card-body">
                   <div class="clearfix mb-3"></div>
-                  <div class="input-group d-flex flex-column">
-                    <label for="date-query">Pilih Tanggal: </label>
-                    <input type="date" class="btn btn-primary daterange-btn icon-left btn-icon mb-4" name="date-query" id="date-query">
-                  </div>
                   <div class="table-responsive absensi" id="data-absensi">
                     <div class="container">
                       <div class="row">
                         <div class="col-md-2 p-0 d-flex">
                           <a href="<?= base_url(); ?>" target="_blank" rel="noopener noreferrer" id="get-laporan">
-                            <button class="btn btn-danger w-100 h-100 mr-4" id="cetak-laporan">Cetak Laporan</button>
+                            <button class="btn btn-primary w-100 h-100 mr-4" id="cetak-laporan">Cetak Laporan</button>
                           </a>
                         </div>
                         <div class="col-md-10 p-0 d-flex">
-                          <input class="search form-control" placeholder="Search" />
+                          <input class="search form-control w-100 h-100 " placeholder="Search" />
                         </div>
                       </div>
                     </div>

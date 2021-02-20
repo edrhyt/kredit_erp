@@ -23,7 +23,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Form Isian Surat Order</h4>
-                        <?php var_dump($inv); ?>
+                        <?php //var_dump($inv); ?>
                         <div class="card-header-action">
                             <form action="<?php echo base_url('so/add_so'); ?>" method="POST" class="needs-validation" novalidate="" accept-charset="utf-8">
                             <div class="input-group">
@@ -104,7 +104,7 @@
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Barang</label>
                                 <div class="col-sm-12 col-md-7">
-                                <a href="#" class="btn btn-icon icon-left btn-primary btn-block" data-toggle="modal" data-target="#exampleModalScrollable" onclick="<?= base_url('penjualan/empty_temp_dtl');?>" id="modal_barang"><i class="far fa-edit"></i> Tambah Data Barang</a>
+                                    <a href="#" class="btn btn-icon icon-left btn-primary btn-block" data-toggle="modal" data-target="#exampleModalScrollable" onclick="<?= base_url('penjualan/empty_temp_dtl');?>" id="modal_barang"><i class="far fa-edit"></i> Tambah Data Barang</a>
                                 </div>
                             </div>
                             <div class="form-group row mb-4">
@@ -281,7 +281,7 @@
                                         </div>
                                             <button type="button" id="btn_dtl" class="add_cart btn btn-success btn-block" data-idbarang="<?php echo $row->id_barang;?>" data-namabarang="<?php echo $row->nama_barang;?>" data-harga="<?php echo $row->harga;?>">Tambah</button>
                                             <br>
-                                           </form>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -320,7 +320,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="<?= base_url('assets/js/jquery-3.5.1.min.js')?>"></script>
 <script type="text/javascript">
     function getTotal()
     {   

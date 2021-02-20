@@ -28,8 +28,8 @@
             padding-top: 12px;
             padding-bottom: 12px;
             text-align: left;
-            background-color: #394EEA;
-            color: white;
+            background-color: #2F2F2F;
+            color: #F2F2F2;
         }
 
         .good {
@@ -62,9 +62,9 @@
             <tr>
                 <td class="no"><?= $record['no']; ?></td>
                 <td class="nama"><?= $record['nama']; ?></td>
-                <td class="masuk"><?= $record['masuk']; ?></td>
-                <td class="pulang"><?= $record['pulang']; ?></td>
-                <td class="durasi <?= $record['keterangan']; ?>"><?= $record['durasi']['jam'].' Jam '.$record['durasi']['menit'].' Menit'; ?></td>
+                <td class="masuk"><?php if($record['masuk'] != NULL) {echo $record['masuk']; } else {echo '-';} ?></td>
+                <td class="pulang"><?php if($record['pulang'] != NULL) {echo $record['pulang']; } else {echo '-';} ?></td>
+                <td class="durasi <?= $record['keterangan']; ?>"><?php if(($record['durasi']['jam'] > 0) || ($record['durasi']['menit'] > 0)){ echo $record['durasi']['jam'].' Jam '.$record['durasi']['menit'].' Menit'; } else { echo '-'; } ?></td>
             </tr>
             <?php endforeach; ?>
         
