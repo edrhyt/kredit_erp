@@ -157,6 +157,7 @@ class SO extends CI_Controller {
 	        'id'	 		=> $items['id'],
 	        'kode_detail'   => $this->gencode->_Code($this->table,'kode_detail','BSO'),
 			'id_barang' 	=> $items['id_barang'],
+			'id_surat_order'=> $items['id_surat_order'],
 			'name' 			=> $items['name'],
 			'merk'			=> $this->input->post('merk'), 
 			'price'			=> $items['price'], 
@@ -170,7 +171,7 @@ class SO extends CI_Controller {
 		$this->db->empty_table('tb_temp1');
 	}
 
-     function add_to_cart(){ //fungsi Add To Cart
+    function add_to_cart(){ //fungsi Add To Cart
 		$data = array(
 			'id'	 		=> $this->input->post('id_barang'), 
 			'name' 			=> $this->input->post('nama_barang'),  
@@ -201,11 +202,11 @@ class SO extends CI_Controller {
 	    }
 	    $output .= '
 	        <tr>
-	            <th colspan="3">Total</th>
+	            <th colspan="3">Totalgasg</th>
 	            <th colspan="2" id="total_harga">'.$this->cart->total().'</th>
 	        </tr>
 	    ';
-		    return $output;
+		return $output;
 	}
 
 	function load_cart(){ //load data cart

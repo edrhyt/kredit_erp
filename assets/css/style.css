@@ -4128,15 +4128,3 @@ body:not(.sidebar-mini)
 		opacity: 0;
 	}
 }
-
-.good {
-	background-color: rgba(20, 255, 20, 0.12);
-}
-
-.bad {
-	background-color: rgba(255, 20, 20, 0.12);
-}
-
-#data-absensi th {
-	cursor: pointer;
-}

@@ -45,4 +45,15 @@ class Absensi_model extends CI_Model
         return $result;
     }
 
+    public function checkKaryawanAbsensi($id_karyawan = NULL, $date)
+    {
+        $result = $this->db->query('SELECT keterangan FROM absensi WHERE id_karyawan = '.$id_karyawan.' AND masuk LIKE "%'.$date.'%" LIMIT 1;')->result_array();
+
+        if( count($result) > 0 ) {
+            return (int) $result[0]['keterangan'];
+        }
+
+        return 0;
+    }
+
 }

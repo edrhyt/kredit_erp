@@ -146,11 +146,8 @@ class Penjualan extends CI_Controller {
 	{
 	    foreach ($this->cart->contents() as $items){ 
 	    $result[] = array(
-	        'id'	 		=> $items['id'],
 	        'kode_detail'   => $this->gencode->_Code($this->table,'kode_detail','BSO'),
-			'name' 			=> $items['name'],
-			// 'merk'			=> $this->input->post('merk');
-			'price'			=> $items['price'], 
+	        'id_barang'     => $items['id'],
 			'qty' 			=> $items['qty'],
 	    	);
 	    }
@@ -269,6 +266,7 @@ class Penjualan extends CI_Controller {
 	        $no++;
 	        $output .='
 	            <tr>
+	                <td style="display: none;">'.$items['id'].'</td>
 	                <td>'.$items['name'].'</td>
 	                <td>'.number_format($items['price']).'</td>
 	                <td>'.$items['qty'].'</td>
@@ -283,7 +281,7 @@ class Penjualan extends CI_Controller {
 	            <th colspan="2" id="total_harga">'.$this->cart->total().'</th>
 	        </tr>
 	    ';
-		    return $output;
+		return $output;
 	}
 
 	function load_cart(){ //load data cart

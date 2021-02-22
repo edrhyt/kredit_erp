@@ -77,7 +77,7 @@ class Absensi extends CI_Controller {
 		$data = [
 			'id_karyawan' => $karyawan['id_karyawan'],
 			$keterangan => date('Y-m-d H:i:s'),
-			];
+		];
 
 		if( $keterangan == 'masuk' ){
 
@@ -109,6 +109,17 @@ class Absensi extends CI_Controller {
 					redirect(base_url("absensi"));
 					
 				} else {
+					$masuk = new DateTime($absensi->row_array()['masuk']);
+					$pulang = new DateTime($data['pulang']);
+					$durasi = $pulang->diff($masuk);
+
+					if($durasi->h < 8) {
+						$data += array('keterangan' => 1);
+					} else {
+						$data += array('keterangan' => 2);
+					}
+
+					$data += array('keterangan' => 1);
 					$result = $this->absensi->updateAbsensi($absensi->row_array()['id_absen'], $data);
 	
 					if ($result) {

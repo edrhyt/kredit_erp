@@ -54,21 +54,6 @@ class Data_Absensi extends CI_Controller {
 		}
 	}
 
-	public function laporan()
-	{
-		$date = strtotime($_GET['date']);
-		$data = $this->getNormalizeDailyAbsensi($date, FALSE);
-		// $data = array('HH' => 'HHH');
-	
-		$this->load->library('pdf');
-	
-		$this->pdf->setPaper('A4', 'portrait');
-		$this->pdf->filename = 'laporan-absensi-'.$date.'.pdf';
-
-		$this->pdf->load_view('kepegawaian/absensi/laporan', $data);
-		return $this->pdf->stream();
-	}
-
 	protected function getNormalizeDailyAbsensi($date, $dataOnly = FALSE) 
 	{
 		$results = $this->absensi->getDailyAbsensi(date('Y-m-d', $date))->result_array();
@@ -113,4 +98,69 @@ class Data_Absensi extends CI_Controller {
 
 		return $final;
 	}
+
+	public function monthly()
+	{
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			header("Content-Type: application/json");
+
+			$date = [
+				'y' => date('Y', strtotime($_POST['date'])), 
+				'm' => date('m', strtotime($_POST['date'])),
+				'd' => date('d', strtotime($_POST['date']))];
+
+			$listKaryawan = $this->karyawan->getFieldsKaryawan(['id_karyawan', 'nik', 'nama_lengkap']);
+
+			/* Normalize data list karyawan */
+			for($i = 0; $i < count($listKaryawan); $i++) {			
+				$listKaryawan[$i]['absensi'] = array();
+				$days = cal_days_in_month(CAL_GREGORIAN, $date['m'], $date['y']);
+
+				for($j = 1; $j <= $days; $j++){
+					$id_karyawan = $listKaryawan[$i]['id_karyawan'];
+					$status = $this->absensi->checkKaryawanAbsensi($id_karyawan, $date['y'].'-'.$date['m'].'-'.$j);
+
+					array_push($listKaryawan[$i]['absensi'], $status);
+				}			
+			}
+			/* End of Normalize list karyawan data */
+			$json['days'] = cal_days_in_month(CAL_GREGORIAN, $date['m'], $date['y']);
+			$json['data'] = $listKaryawan;
+
+			$json = json_encode($json);
+
+			if ($json === false) {
+				// Avoid echo of empty string (which is invalid JSON), and
+				// JSONify the error message instead:
+				$json = json_encode(["jsonError" => json_last_error_msg()]);
+				if ($json === false) {
+					// This should not happen, but we go all the way now:
+					$json = '{"jsonError":"unknown"}';
+				}
+				// Set HTTP response status code to: 500 - Internal Server Error
+				http_response_code(500);
+			}
+			echo $json;
+			exit;
+		} else {
+			header("HTTP/1.1 401 Unauthorized");
+    		exit("You don't have access to this page!");
+		}
+	}
+
+	public function laporan()
+	{
+		$date = strtotime($_GET['date']);
+		$data = $this->getNormalizeDailyAbsensi($date, FALSE);
+		// $data = array('HH' => 'HHH');
+	
+		$this->load->library('pdf');
+	
+		$this->pdf->setPaper('A4', 'portrait');
+		$this->pdf->filename = 'laporan-absensi-'.$date.'.pdf';
+
+		$this->pdf->load_view('kepegawaian/absensi/laporan', $data);
+		return $this->pdf->stream();
+	}
+
 }

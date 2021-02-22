@@ -42,34 +42,40 @@
     </style>
 </head>
 <body>
-    <div class="desc">
-        <h2>Laporan Absensi</h2>
-        <h4><?= $recordsDate ?></h4>
-    </div>
-    <div class="table-responsive absensi" id="data-absensi">
-    <table class="table table-striped table-bordered table-hover mt-4" id="abs-table">
-        <thead>
-        <tr>
-            <th class="sort" data-sort="no">No</th>
-            <th class="sort" data-sort="nama">Nama Karyawan</th>
-            <th class="sort" data-sort="masuk">Jam Masuk</th>
-            <th class="sort" data-sort="pulang">Jam Pulang</th>
-            <th class="sort" data-sort="durasi">Durasi Kerja</th>
-        </tr>
-        </thead>
-        <tbody class="list">    
-            <?php foreach($data as $record): ?>
+    <div class="wrapper">
+    <?php if($_GET['t'] == 'harian'){ ?>
+        <div class="desc">
+            <h2>Laporan Absensi</h2>
+            <h4><?= $recordsDate ?></h4>
+        </div>
+        <div class="table-responsive absensi" id="data-absensi">
+        <table class="table table-striped table-bordered table-hover mt-4" id="abs-table">
+            <thead>
             <tr>
-                <td class="no"><?= $record['no']; ?></td>
-                <td class="nama"><?= $record['nama']; ?></td>
-                <td class="masuk"><?php if($record['masuk'] != NULL) {echo $record['masuk']; } else {echo '-';} ?></td>
-                <td class="pulang"><?php if($record['pulang'] != NULL) {echo $record['pulang']; } else {echo '-';} ?></td>
-                <td class="durasi <?= $record['keterangan']; ?>"><?php if(($record['durasi']['jam'] > 0) || ($record['durasi']['menit'] > 0)){ echo $record['durasi']['jam'].' Jam '.$record['durasi']['menit'].' Menit'; } else { echo '-'; } ?></td>
+                <th class="sort" data-sort="no">No</th>
+                <th class="sort" data-sort="nama">Nama Karyawan</th>
+                <th class="sort" data-sort="masuk">Jam Masuk</th>
+                <th class="sort" data-sort="pulang">Jam Pulang</th>
+                <th class="sort" data-sort="durasi">Durasi Kerja</th>
             </tr>
-            <?php endforeach; ?>
-        
-        </tbody>
-    </table>           
+            </thead>
+            <tbody class="list">    
+                <?php foreach($data as $record): ?>
+                <tr>
+                    <td class="no"><?= $record['no']; ?></td>
+                    <td class="nama"><?= $record['nama']; ?></td>
+                    <td class="masuk"><?php if($record['masuk'] != NULL) {echo $record['masuk']; } else {echo '-';} ?></td>
+                    <td class="pulang"><?php if($record['pulang'] != NULL) {echo $record['pulang']; } else {echo '-';} ?></td>
+                    <td class="durasi <?= $record['keterangan']; ?>"><?php if(($record['durasi']['jam'] > 0) || ($record['durasi']['menit'] > 0)){ echo $record['durasi']['jam'].' Jam '.$record['durasi']['menit'].' Menit'; } else { echo '-'; } ?></td>
+                </tr>
+                <?php endforeach; ?>
+            
+            </tbody>
+        </table>           
+        </div>
+    <?php } elseif($_GET['t'] == 'bulanan') { ?>
+
+    <?php } ?>
     </div>
 </body>
 </html>

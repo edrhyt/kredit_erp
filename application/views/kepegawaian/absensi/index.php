@@ -17,8 +17,18 @@
           <div class="row mt-4">
             <div class="col-12">
               <div class="card">
-                <div class="card-header">
+                <div class="card-header position-relative">
                   <h4>Data Absensi</h4>
+                  <div class="abs-type-container d-flex">
+                    <div class="harian-container">
+                      <input class="radio-abs" type="radio" name="inlineRadioOptions" id="radio-harian" value="harian" checked></input>
+                      <label for="radio-harian">Harian</label>                    
+                    </div>
+                    <div class="bulanan-container">
+                      <input class="radio-abs" type="radio" name="inlineRadioOptions" id="radio-bulanan" value="bulanan">
+                      <label for="radio-bulanan">Bulanan</label>                      
+                    </div>
+                  </div>
                 </div>
                 <div class="card-body">
                   <div class="clearfix mb-3"></div>
@@ -35,7 +45,8 @@
                         </div>
                       </div>
                     </div>
-                    <table class="table table-striped table-bordered table-hover mt-4">
+
+                    <table class="table table-striped table-bordered table-hover mt-4" id="data-absensi-harian">
                       <thead>
                         <tr>
                           <th class="sort" data-sort="no">No</th>
@@ -56,7 +67,26 @@
                           <td class="durasi"></td>
                         </tr>
                       </tbody>
-                    </table>           
+                    </table>     
+                    
+                    <div id="data-absensi-list">
+                      <table class="table-bulanan mt-4 table-striped table-bordered table-responsive" id="data-absensi-bulanan">
+                        <thead>
+                          <tr class="row-head">
+                            <th class="em-no">No</th>
+                            <th class="em-name">NIK</th>
+                            <th class="em-nik">Nama</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                      </table>
+                      <div id="legend" class="mt-4">
+                        <p>*Cell warna merah: <strong>Tidak masuk kerja.</strong></p>
+                        <p>*Cell warna kuning: <strong>Masuk dengan durasi kerja < 8 jam.</strong></p>
+                        <p>*Cell warna hijau: <strong>Masuk dengen durasi kerja >= 8 jam.</strong></p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

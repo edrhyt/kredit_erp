@@ -47,6 +47,14 @@ class Karyawan_model extends CI_Model
     {
         return $this->db->get_where('tb_karyawan k', ['id_karyawan' => $id])->row_array();
     }
+
+    public function getFieldsKaryawan( array $fields = ['id_karyawan', 'nik', 'nama_lengkap'] )
+    {
+        $this->db->select($fields);
+        $results = $this->db->get('tb_karyawan')->result_array();
+        
+        return $results;
+    }
 }
 
 

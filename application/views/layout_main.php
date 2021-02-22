@@ -25,6 +25,7 @@ if($this->session->userdata('id_user') == '')
   <!-- Template CSS -->
   <link rel="stylesheet" href="<?= base_url('assets/css/style.css')?>">
   <link rel="stylesheet" href="<?= base_url('assets/css/components.css')?>">
+  <link rel="stylesheet" href="<?= base_url('assets/css/custom.css')?>">
   <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script> -->
 </head>
 
