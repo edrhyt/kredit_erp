@@ -109,25 +109,7 @@ class Data_Absensi extends CI_Controller {
 				'm' => date('m', strtotime($_POST['date'])),
 				'd' => date('d', strtotime($_POST['date']))];
 
-			$listKaryawan = $this->karyawan->getFieldsKaryawan(['id_karyawan', 'nik', 'nama_lengkap']);
-
-			/* Normalize data list karyawan */
-			for($i = 0; $i < count($listKaryawan); $i++) {			
-				$listKaryawan[$i]['absensi'] = array();
-				$days = cal_days_in_month(CAL_GREGORIAN, $date['m'], $date['y']);
-
-				for($j = 1; $j <= $days; $j++){
-					$id_karyawan = $listKaryawan[$i]['id_karyawan'];
-					$status = $this->absensi->checkKaryawanAbsensi($id_karyawan, $date['y'].'-'.$date['m'].'-'.$j);
-
-					array_push($listKaryawan[$i]['absensi'], $status);
-				}			
-			}
-			/* End of Normalize list karyawan data */
-			$json['days'] = cal_days_in_month(CAL_GREGORIAN, $date['m'], $date['y']);
-			$json['data'] = $listKaryawan;
-
-			$json = json_encode($json);
+			$json = json_encode($this->getNormalizeMonthlyAbsensi($date));
 
 			if ($json === false) {
 				// Avoid echo of empty string (which is invalid JSON), and
@@ -148,19 +130,60 @@ class Data_Absensi extends CI_Controller {
 		}
 	}
 
+	public function getNormalizeMonthlyAbsensi($date)
+	{
+		$listKaryawan = $this->karyawan->getFieldsKaryawan(['id_karyawan', 'nik', 'nama_lengkap']);
+
+		/* Normalize data list karyawan */
+		for($i = 0; $i < count($listKaryawan); $i++) {			
+			$listKaryawan[$i]['absensi'] = array();
+			$days = cal_days_in_month(CAL_GREGORIAN, $date['m'], $date['y']);
+
+			for($j = 1; $j <= $days; $j++){
+				$id_karyawan = $listKaryawan[$i]['id_karyawan'];
+				$status = $this->absensi->checkKaryawanAbsensi($id_karyawan, $date['y'].'-'.$date['m'].'-'.$j);
+
+				array_push($listKaryawan[$i]['absensi'], $status);
+			}			
+		}
+		$json['recordDate'] = date('F Y', strtotime($date['y'].'-'.$date['m']));
+		$json['days'] = cal_days_in_month(CAL_GREGORIAN, $date['m'], $date['y']);
+		$json['data'] = $listKaryawan;
+
+		return $json;
+	}
+
 	public function laporan()
 	{
-		$date = strtotime($_GET['date']);
-		$data = $this->getNormalizeDailyAbsensi($date, FALSE);
-		// $data = array('HH' => 'HHH');
+		if($_GET['t'] == 'harian'){
+			$date = strtotime($_GET['date']);
+			$data = $this->getNormalizeDailyAbsensi($date, FALSE);
+			// $data = array('HH' => 'HHH');
+		
+			$this->load->library('pdf');
+		
+			$this->pdf->setPaper('A4', 'portrait');
+			$this->pdf->filename = 'laporan-absensi-'.$date.'.pdf';
 	
-		$this->load->library('pdf');
+			$this->pdf->load_view('kepegawaian/absensi/laporan', $data);
+			return $this->pdf->stream();
+		} elseif($_GET['t'] == 'bulanan') {
+			$date = [
+				'y' => date('Y', strtotime($_GET['date'])), 
+				'm' => date('m', strtotime($_GET['date'])),
+				'd' => date('d', strtotime($_GET['date']))];
+			$data = $this->getNormalizeMonthlyAbsensi($date);
+			
+			// $this->template->load('layout_main', 'kepegawaian/absensi/laporan', $data);
+		
+			$this->load->library('pdf');
+		
+			$this->pdf->setPaper('A4', 'landscape');
+			$this->pdf->filename = 'laporan-absensi-'.date('m-Y', strtotime($_GET['date'])).'.pdf';
 	
-		$this->pdf->setPaper('A4', 'portrait');
-		$this->pdf->filename = 'laporan-absensi-'.$date.'.pdf';
-
-		$this->pdf->load_view('kepegawaian/absensi/laporan', $data);
-		return $this->pdf->stream();
+			$this->pdf->load_view('kepegawaian/absensi/laporan', $data);
+			return $this->pdf->stream();
+		}
 	}
 
 }
