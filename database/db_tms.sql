@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2021 at 06:08 PM
--- Server version: 10.4.16-MariaDB
--- PHP Version: 7.4.12
+-- Generation Time: Feb 25, 2021 at 04:56 AM
+-- Server version: 10.4.13-MariaDB
+-- PHP Version: 7.3.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -21,6 +21,20 @@ SET time_zone = "+00:00";
 -- Database: `db_tms`
 --
 
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `makeDailyAbsTemp` (IN `tanggal` VARCHAR(255))  BEGIN
+	DROP TEMPORARY TABLE IF EXISTS daily_abs_temp;    
+    
+    CREATE TEMPORARY TABLE daily_abs_temp
+    SELECT * FROM absensi
+    WHERE masuk LIKE tanggal;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -29,59 +43,26 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `absensi` (
   `id_absen` int(11) NOT NULL,
-  `tgl` date NOT NULL,
-  `waktu` time NOT NULL,
-  `keterangan` enum('Masuk','Pulang') CHARACTER SET latin1 NOT NULL,
-  `id_karyawan` int(11) NOT NULL
+  `id_karyawan` int(11) NOT NULL,
+  `masuk` datetime NOT NULL,
+  `pulang` datetime DEFAULT NULL,
+  `keterangan` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `absensi`
 --
 
-INSERT INTO `absensi` (`id_absen`, `tgl`, `waktu`, `keterangan`, `id_karyawan`) VALUES
-(34, '2021-01-19', '02:08:14', 'Masuk', 27),
-(35, '2021-01-19', '02:08:45', 'Masuk', 27),
-(36, '2021-01-19', '02:09:03', 'Masuk', 27),
-(37, '2021-01-19', '02:11:37', 'Masuk', 27),
-(38, '2021-01-19', '02:15:02', 'Masuk', 27),
-(39, '2021-01-19', '02:15:52', 'Masuk', 27),
-(40, '2021-01-19', '02:16:20', 'Masuk', 27),
-(41, '2021-01-19', '02:16:32', 'Masuk', 26),
-(42, '2021-01-19', '02:16:51', 'Masuk', 27),
-(43, '2021-01-19', '02:21:23', 'Masuk', 27),
-(44, '2021-01-19', '02:22:07', 'Pulang', 27),
-(45, '2021-01-19', '02:26:27', 'Masuk', 27),
-(46, '2021-01-19', '02:27:21', 'Masuk', 27),
-(47, '2021-01-19', '02:28:15', 'Masuk', 27),
-(48, '2021-01-19', '02:29:47', 'Masuk', 27),
-(49, '2021-01-19', '02:34:43', 'Masuk', 27),
-(50, '2021-01-19', '02:35:44', 'Masuk', 27),
-(51, '2021-01-19', '02:36:19', 'Pulang', 27),
-(52, '2021-01-19', '02:36:40', 'Pulang', 27),
-(53, '2021-01-19', '02:36:53', 'Pulang', 27),
-(54, '2021-01-19', '02:37:57', 'Pulang', 27),
-(55, '2021-01-19', '02:38:55', 'Pulang', 27),
-(56, '2021-01-19', '02:39:08', 'Pulang', 27),
-(57, '2021-01-19', '02:39:53', 'Masuk', 27),
-(58, '2021-01-19', '02:40:04', 'Masuk', 27),
-(59, '2021-01-19', '02:44:37', 'Masuk', 27),
-(60, '2021-01-19', '02:44:52', 'Masuk', 27),
-(61, '2021-01-19', '02:45:31', 'Pulang', 27),
-(62, '2021-01-19', '02:47:15', 'Pulang', 27),
-(63, '2021-01-19', '02:50:04', '', 27),
-(64, '2021-01-19', '02:50:18', '', 27),
-(65, '2021-01-19', '02:51:04', '', 27),
-(66, '2021-01-19', '02:51:34', 'Pulang', 27),
-(67, '2021-01-19', '02:52:06', 'Masuk', 27),
-(68, '2021-01-19', '02:52:20', 'Masuk', 27),
-(69, '2021-01-19', '02:53:56', 'Pulang', 27),
-(70, '2021-01-19', '02:54:10', 'Pulang', 26),
-(71, '2021-01-19', '02:54:20', 'Pulang', 26),
-(72, '2021-01-19', '02:57:17', 'Pulang', 27),
-(73, '2021-01-19', '02:57:33', 'Pulang', 26),
-(74, '2021-01-19', '02:57:54', 'Masuk', 27),
-(75, '2021-01-19', '02:58:04', 'Masuk', 26);
+INSERT INTO `absensi` (`id_absen`, `id_karyawan`, `masuk`, `pulang`, `keterangan`) VALUES
+(4, 19, '2021-02-10 17:45:16', '2021-02-10 17:45:19', 1),
+(5, 20, '2021-02-10 17:46:21', '2021-02-10 17:47:00', 1),
+(7, 27, '2021-02-10 08:55:56', '2021-02-10 17:13:59', 2),
+(8, 27, '2021-02-13 06:19:47', '2021-02-13 13:19:50', 1),
+(9, 24, '2021-02-13 07:19:56', '2021-02-13 15:19:59', 2),
+(10, 18, '2021-02-13 07:07:17', '2021-02-13 16:09:20', 2),
+(11, 24, '2021-02-17 07:00:12', '2021-02-17 16:00:12', 2),
+(12, 26, '2021-02-22 20:06:51', '2021-02-22 20:06:56', 1),
+(13, 21, '2021-02-22 10:08:13', '2021-02-22 20:10:22', 2);
 
 -- --------------------------------------------------------
 
@@ -42161,7 +42142,7 @@ CREATE TABLE `tb_barang_so` (
 --
 
 INSERT INTO `tb_barang_so` (`id_brg_so`, `kode_detail`, `nama_brg`, `merk`, `harga_brg`, `jumlah`) VALUES
-(0, 'BSO051120001', 'DEEPWOOK STEAMER', '', 105000, 1);
+(0, 'BSO130221001', 'DEEPWOOK STEAMER', '', 105000, 1);
 
 -- --------------------------------------------------------
 
@@ -42298,16 +42279,16 @@ CREATE TABLE `tb_karyawan` (
 
 INSERT INTO `tb_karyawan` (`id_karyawan`, `id_divisi`, `id_jabatan`, `nama_lengkap`, `tempat_lahir`, `tgl_lahir`, `no_ktp`, `alamat_karyawan`, `no_hp`, `nik`, `aktif`, `img`) VALUES
 (2, '3', '009', 'Rivaldi Irawan', 'Bandung', '1999-11-26', '3213032611980003', 'Bandung', '0896718765252', 'TMS221020001', 'Y', ''),
-(3, '1', '002', 'Falano Rajib', 'Bandung', '2020-10-26', '3213032611980002', 'Cianjur', '0896718765252', 'TMS261020001', 'T', ''),
-(4, '1', '002', 'Indra', 'Cianjur', '2020-10-30', '3213032611980002', 'Cianjur', '0896718765288', 'TMS301020001', 'Y', ''),
-(5, '2', '008', 'Chandra', 'Cimahi', '2020-10-30', '3213032611980007', 'sfadfSFDDF', '0896718765252', 'TMS301020001', 'Y', 'Chandra-2020-10-29.png'),
-(6, '1', '004', 'Rizal', 'Bandung', '2020-10-30', '3213032611980008', 'asdasf', '0896718765288', 'TMS301020001', 'Y', ''),
-(7, '3', '010', 'Paul', 'Cianjur', '2020-10-30', '3213032611980026', 'asfafdf', '0896718765252', 'TMS301020001', 'Y', 'Paul-2020-10-29.png'),
-(8, '3', '009', 'Trania', 'Purwokerto', '2020-10-30', '3213032611980009', 'asdasdasd', '0896718765252', 'TMS301020001', 'Y', 'Trania-2020-10-29.png'),
-(9, '1', '002', 'Gilang', 'Bandung', '2020-10-30', '3213032611980002', 'Batu jajar', '0896718765252', 'TMS301020001', 'Y', ''),
-(10, '1', '002', 'Farhan', 'Bandung', '2020-10-30', '3213032611980008', 'Bandung', '0896718765252', 'TMS301020002', 'Y', ''),
+(3, '1', '002', 'Falano Rajib', 'Bandung', '2020-10-26', '3213032611980002', 'Cianjur', '0896718765252', 'TMS261020002', 'T', ''),
+(4, '1', '002', 'Indra', 'Cianjur', '2020-10-30', '3213032611980002', 'Cianjur', '0896718765288', 'TMS301020003', 'Y', ''),
+(5, '2', '008', 'Chandra', 'Cimahi', '2020-10-30', '3213032611980007', 'sfadfSFDDF', '0896718765252', 'TMS301020004', 'Y', 'Chandra-2020-10-29.png'),
+(6, '1', '004', 'Rizal', 'Bandung', '2020-10-30', '3213032611980008', 'asdasf', '0896718765288', 'TMS301020002', 'Y', ''),
+(7, '3', '010', 'Paul', 'Cianjur', '2020-10-30', '3213032611980026', 'asfafdf', '0896718765252', 'TMS301020003', 'Y', 'Paul-2020-10-29.png'),
+(8, '3', '009', 'Trania', 'Purwokerto', '2020-10-30', '3213032611980009', 'asdasdasd', '0896718765252', 'TMS301020004', 'Y', 'Trania-2020-10-29.png'),
+(9, '1', '002', 'Gilang', 'Bandung', '2020-10-30', '3213032611980002', 'Batu jajar', '0896718765252', 'TMS301020005', 'Y', ''),
+(10, '1', '002', 'Farhan', 'Bandung', '2020-10-30', '3213032611980008', 'Bandung', '0896718765252', 'TMS301020006', 'Y', ''),
 (11, '1', '002', 'Fauzi Akbar', 'Cilegon', '2020-11-02', '3213032611980123', 'Cilegon', '0896718765252', 'TMS021120001', 'Y', ''),
-(12, '2', '008', 'Chandra Purnama', 'Batu Jajar', '2020-11-02', '3213032611980122', 'Batu Jajar', '0896718765288', 'TMS021120001', 'Y', 'Chandra_Purnama-2020-11-01.png'),
+(12, '2', '008', 'Chandra Purnama', 'Batu Jajar', '2020-11-02', '3213032611980122', 'Batu Jajar', '0896718765288', 'TMS021120011', 'Y', 'Chandra_Purnama-2020-11-01.png'),
 (13, '2', '007', 'Fahrul Mulqi', 'Cimahi', '2020-11-02', '3213032611980121', 'Cimahi', '089671875619', 'TMS021120001', 'Y', 'Fahrul_Mulqi-2020-11-01.png'),
 (14, '1', '002', 'Alfa', 'Bandung', '2020-11-02', '3213032611980003', 'Cimahi', '089671875619', 'TMS021120001', 'Y', ''),
 (15, '1', '003', 'Rihanna', 'Bandung', '2020-11-02', '3213032611980026', 'Bandung', '0896718765252', 'TMS021120001', 'Y', 'Rihanna-2020-11-01.png'),
@@ -42351,7 +42332,21 @@ CREATE TABLE `tb_login` (
 --
 
 INSERT INTO `tb_login` (`id_user`, `username`, `password`, `nama_lengkap`, `no_ktp`, `alamat_lengkap`, `no_hp`, `email`, `hak_akses`, `bergabung`, `aktif`, `lokasi`, `img`) VALUES
-(8, 'admin', 'bde86eb276d81ced7741f7e75b6de826', 'Admin TMS', '3213032611980001', 'Bandung', '089671875619', 'rivaldiir10@gmail.com', 'Administrator', '2020-10-22', 'Y', 'BDG', 'admin-2020-10-25.png');
+(8, 'admin', 'bde86eb276d81ced7741f7e75b6de826', 'Admin TMS', '3213032611980001', 'Bandung', '089671875619', 'rivaldiir10@gmail.com', 'Administrator', '2020-10-22', 'Y', 'BDG', 'admin-2020-10-25.png'),
+(9, 'ediruhiat', 'ac3b0905b360262db2abbd1c16036629', 'Edi Ruhiat', '3217062111994014', 'Bandung Barat', '081293626948', 'edrhiat@gmail.com', 'Administrator', '2021-02-02', 'Y', 'BDG', 'edi.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_so_detail`
+--
+
+CREATE TABLE `tb_so_detail` (
+  `id_so_detail` int(11) NOT NULL,
+  `id_surat_order` int(11) DEFAULT NULL,
+  `id_barang` int(11) NOT NULL,
+  `qty` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -42393,7 +42388,8 @@ INSERT INTO `tb_surat_order` (`id_surat_order`, `id_kab`, `id_kec`, `id_kel`, `i
 (11, '3273', '327316', '3273161004', 21, 15, 14, 'BDG-002', 'BSO091220011', '2020-12-10', '0000-00-00', '0000-00-00', 'Andri', 'Bandung', 5, '', '40000', '20000', 525000, 485000, 85000, 97000),
 (12, '3277', '327702', '3277021002', 22, 16, 4, 'BDG-003', 'BSO091220002', '2020-12-11', '0000-00-00', '0000-00-00', 'Yoga', 'Cimahi', 8, '', '35000', '20000', 840000, 805000, 85000, 100625),
 (13, '3217', '321708', '3217082005', 23, 15, 10, 'BDG-004', 'BSO091220003', '2020-12-10', '0000-00-00', '0000-00-00', 'Adik', 'KBB', 5, '', '30000', '20000', 525000, 495000, 85000, 99000),
-(14, '3277', '327702', '3277021005', 6, 16, 3, 'BDG-006', 'BSO111220001', '2020-12-11', '0000-00-00', '0000-00-00', 'Zulkifli', 'Bandung Coret', 7, '', '35000', '50000', 735000, 700000, 55000, 100000);
+(14, '3277', '327702', '3277021005', 6, 16, 3, 'BDG-006', 'BSO111220001', '2020-12-11', '0000-00-00', '0000-00-00', 'Zulkifli', 'Bandung Coret', 7, '', '35000', '50000', 735000, 700000, 55000, 100000),
+(15, '3277', '327701', '3217122009', 22, 15, 14, 'BDG-008', 'BSO130221001', '2021-02-13', '0000-00-00', '0000-00-00', 'Kiki', 'Jijaheun', 5, '2000', '', '2000', 1000000, 0, 198000, 200000);
 
 -- --------------------------------------------------------
 
@@ -42436,7 +42432,7 @@ CREATE TABLE `tb_survey` (
 
 INSERT INTO `tb_survey` (`id_survey`, `id_surat_order`, `no_surat_order`, `kode_detail`, `tgl_so`, `tgl_survey`, `tgl_kirim`, `nama_koordinator`, `nama_konsumen`, `id_kab`, `id_kec`, `id_kel`, `id_surveyor`, `alamat_penagihan`, `tgl_tempo`, `bulan_awal`, `bulan_akhir`, `no_telp`, `tgl_verifikasi`, `kode_tolak`, `status`, `keterangan`, `kode_delivery`, `status_delivery`, `keterangan_delivery`, `status_petugas`) VALUES
 (20, 10, 'BDG-001', 'BSO091220001', '2020-12-09', '2020-12-10', '2021-01-01', 'Raihan', 'azzam', '3210', '321015', '3210152005', 13, 'Majalengka', 1, '01', '06', '089789273891', '2020-12-11', '', 'Diterima', '', '', 'Pending', '', 1),
-(22, 13, 'BDG-004', 'BSO091220003', '2020-12-10', '2020-12-11', '2020-12-12', 'Adik', 'Samuel', '3217', '321708', '3217082005', 13, 'KBB', 1, '01', '05', '081789273891', '2020-12-10', '', 'Proses', '', '', 'Proses', '', 0),
+(22, 13, 'BDG-004', 'BSO091220003', '2020-12-10', '2020-12-11', '2020-12-12', 'Adik', 'Samuel', '3217', '321708', '3217082005', 13, 'KBB', 1, '01', '05', '081789273891', '2021-02-09', '', 'Batal', 'BD', '', 'Proses', '', 0),
 (35, 11, 'BDG-002', 'BSO091220011', '2020-12-10', '2020-12-12', '2021-01-01', 'Andri', 'Moh. Nasuha', '3273', '327316', '3273161004', 13, 'Bandung', 11, '01', '07', '089789273833', '2020-12-11', '', 'Batal', 'DASDA', '', 'Proses', '', 0);
 
 -- --------------------------------------------------------
@@ -42446,20 +42442,10 @@ INSERT INTO `tb_survey` (`id_survey`, `id_surat_order`, `no_surat_order`, `kode_
 --
 
 CREATE TABLE `tb_temp1` (
-  `id` int(11) NOT NULL,
-  `kode_detail` varchar(15) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `merk` varchar(15) NOT NULL,
-  `price` double NOT NULL,
-  `qty` int(2) NOT NULL
+  `id_so_detail` varchar(15) NOT NULL,
+  `id_barang` varchar(15) NOT NULL,
+  `qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tb_temp1`
---
-
-INSERT INTO `tb_temp1` (`id`, `kode_detail`, `name`, `merk`, `price`, `qty`) VALUES
-(0, 'BSO111220002', 'PRESTO 8L', '', 325000, 1);
 
 -- --------------------------------------------------------
 
@@ -42623,7 +42609,7 @@ ALTER TABLE `tb_verifikasi`
 -- AUTO_INCREMENT for table `absensi`
 --
 ALTER TABLE `absensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `jam`
@@ -42653,13 +42639,13 @@ ALTER TABLE `tb_karyawan`
 -- AUTO_INCREMENT for table `tb_login`
 --
 ALTER TABLE `tb_login`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tb_surat_order`
 --
 ALTER TABLE `tb_surat_order`
-  MODIFY `id_surat_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_surat_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tb_survey`
