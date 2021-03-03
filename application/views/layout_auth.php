@@ -13,17 +13,17 @@ if($this->session->userdata('id_user') <> '')
   <title>Login &mdash; TMS </title>
 
   <!-- General CSS Files -->
-  <link rel="stylesheet" href="<?php echo base_url()?>assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="<?php echo base_url()?>assets/css/all.css" >
-  <link rel="stylesheet" href="<?php echo base_url()?>assets/css/mystyle.css" >
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/all.css" >
+  <link rel="stylesheet" href="assets/css/mystyle.css" >
 
   <!-- CSappS Libraries -->
   <link rel="stylesheet" href="./bower_components/bootstrap-social/bootstrap-social.css">
   
 
   <!-- Template CSS -->
-  <link rel="stylesheet" href="<?php echo base_url()?>assets/css/style.css">
-  <link rel="stylesheet" href="<?php echo base_url()?>assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/components.css">
 </head>
 
 <body>
@@ -33,7 +33,7 @@ if($this->session->userdata('id_user') <> '')
       <div class="d-flex flex-wrap align-items-stretch">
         <div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
           <div class="p-4 m-3">
-            <img src="<?php echo base_url()?>assets/img/tms.svg" alt="logo" width="80" class="shadow-light rounded-circle mb-5 mt-2">
+            <img src="assets/img/tms.svg" alt="logo" width="80" class="shadow-light rounded-circle mb-5 mt-2">
             <h4 class="text-dark font-weight-normal">Selamat datang di <span class="font-weight-bold"><br/>TUNAS MITRA SEJAHTERA</span></h4>
             <p class="text-muted">Aplikasi pengelolaan TMS</p>
             <form action="<?php echo base_url('authentication/do_login'); ?>" method="POST" class="needs-validation" novalidate="" accept-charset="utf-8">
@@ -68,7 +68,7 @@ if($this->session->userdata('id_user') <> '')
             </form>
           </div>
         </div>
-        <div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative overlay-gradient-bottom" data-background="<?php echo base_url()?>assets/img/bg-login.svg">
+        <div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative overlay-gradient-bottom" data-background="assets/img/bg-login.svg">
           <div class="absolute-bottom-left index-2">
             <div class="text-light p-5 pb-2">
               <!-- <div class="mb-5 pb-3">
@@ -84,18 +84,18 @@ if($this->session->userdata('id_user') <> '')
   </div>
 
   <!-- General JS Scripts -->
-  <script src="<?php echo base_url()?>assets/js/jquery-3.3.1.min.js"></script>
-  <script src="<?php echo base_url()?>assets/js/popper.min.js" ></script>
-  <script src="<?php echo base_url()?>assets/js/bootstrap.min.js"></script>
-  <script src="<?php echo base_url()?>assets/js/jquery.nicescroll.min.js"></script>
-  <script src="<?php echo base_url()?>assets/js/moment.min.js"></script>
-  <script src="<?php echo base_url()?>assets/js/stisla.js"></script>
+  <script src="assets/js/jquery-3.5.1.min.js"></script>
+  <script src="assets/js/popper.min.js" ></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/jquery.nicescroll.min.js"></script>
+  <script src="assets/js/moment.min.js"></script>
+  <script src="assets/js/stisla.js"></script>
 
   <!-- JS Libraies -->
 
   <!-- Template JS File -->
-  <script src="<?php echo base_url()?>assets/js/scripts.js"></script>
-  <script src="<?php echo base_url()?>assets/js/custom.js"></script>
+  <script src="assets/js/scripts.js"></script>
+  <script src="assets/js/custom.js"></script>
 
   <script>
   window.setTimeout(function () {

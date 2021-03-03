@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class M_Barang extends CI_Model
+class M_barang extends CI_Model
 {
     public function get($table, $data = null, $where = null)
     {

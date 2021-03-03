@@ -13,19 +13,19 @@ if($this->session->userdata('id_user') == '')
   <title>TMS - <?php echo $title; ?></title>
 
   <!-- General CSS Files -->
-  <link rel="icon" type="image/png" href="<?= base_url('assets/img/tms_logo.svg') ?>">
-  <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css')?>">
-  <link rel="stylesheet" href="<?= base_url('assets/css/all.css')?>" >
-  <link rel="stylesheet" href="<?= base_url('assets/css/mystyle.css')?>" >
+  <link rel="icon" type="image/png" href="<?= 'assets/img/tms_logo.svg' ?>">
+  <link rel="stylesheet" href="<?= 'assets/css/bootstrap.min.css'?>">
+  <link rel="stylesheet" href="<?= 'assets/css/all.css'?>" >
+  <link rel="stylesheet" href="<?= 'assets/css/mystyle.css'?>" >
 
   <!-- CSS Libraries -->
-  <link rel="stylesheet" href="<?= base_url('assets/plugin/datatable/dataTables.bootstrap4.min.css')?>">
+  <link rel="stylesheet" href="<?= 'assets/plugin/datatable/dataTables.bootstrap4.min.css'?>">
  
 
   <!-- Template CSS -->
-  <link rel="stylesheet" href="<?= base_url('assets/css/style.css')?>">
-  <link rel="stylesheet" href="<?= base_url('assets/css/components.css')?>">
-  <link rel="stylesheet" href="<?= base_url('assets/css/custom.css')?>">
+  <link rel="stylesheet" href="<?= 'assets/css/style.css'?>">
+  <link rel="stylesheet" href="<?= 'assets/css/components.css'?>">
+  <link rel="stylesheet" href="<?= 'assets/css/custom.css'?>">
   <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script> -->
 </head>
 
@@ -61,22 +61,22 @@ if($this->session->userdata('id_user') == '')
   </div>
   
   <!-- General JS Scripts -->
-  <script src="<?= base_url('assets/js/jquery-3.5.1.min.js')?>"></script>
-  <script src="<?= base_url('assets/js/popper.min.js')?>" ></script>
-  <script src="<?= base_url('assets/js/bootstrap.min.js')?>"></script>
-  <script src="<?= base_url('assets/js/jquery.nicescroll.min.js')?>"></script>
-  <script src="<?= base_url('assets/js/moment.min.js')?>"></script>
-  <script src="<?= base_url('assets/js/stisla.js')?>"></script>
+  <script src="<?= 'assets/js/jquery-3.5.1.min.js'?>"></script>
+  <script src="<?= 'assets/js/popper.min.js'?>" ></script>
+  <script src="<?= 'assets/js/bootstrap.min.js'?>"></script>
+  <script src="<?= 'assets/js/jquery.nicescroll.min.js'?>"></script>
+  <script src="<?= 'assets/js/moment.min.js'?>"></script>
+  <script src="<?= 'assets/js/stisla.js'?>"></script>
 
   <!-- JS Libraies -->
-  <script src="<?= base_url('assets/plugin/datatable/jquery.dataTables.min.js')?>"></script>
-  <script src="<?= base_url('assets/plugin/datatable/dataTables.bootstrap4.min.js')?>"></script>  
-  <script src="<?= base_url('assets/js/list.min.js')?>"></script>
+  <script src="<?= 'assets/plugin/datatable/jquery.dataTables.min.js'?>"></script>
+  <script src="<?= 'assets/plugin/datatable/dataTables.bootstrap4.min.js'?>"></script>  
+  <script src="<?= 'assets/js/list.min.js'?>"></script>
 
   <!-- Template JS File -->
-  <script src="<?= base_url('assets/js/scripts.js')?>"></script>
-  <script src="<?= base_url('assets/js/custom.js')?>"></script>
-  <script src="<?= base_url('assets/js/absensi.js')?>"></script>
+  <script src="<?= 'assets/js/scripts.js'?>"></script>
+  <script src="<?= 'assets/js/custom.js'?>"></script>
+  <script src="<?= 'assets/js/absensi.js'?>"></script>
 
   <script>
     $(document).ready(function() {

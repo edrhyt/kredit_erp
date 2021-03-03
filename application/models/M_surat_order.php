@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class m_surat_order extends CI_Model {
+class M_surat_order extends CI_Model {
     // public function _getSMPLUbah($tables,$where)
     // {
     //     $this->db->where($where);

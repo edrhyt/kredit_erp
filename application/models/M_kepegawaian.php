@@ -1,5 +1,5 @@
 <?php
-class M_Kepegawaian extends CI_Model{
+class M_kepegawaian extends CI_Model{
 
 	function get_divisi(){
 		$hasil=$this->db->query("SELECT * FROM divisi");

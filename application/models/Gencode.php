@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Generate_Code extends CI_Model {
+class Gencode extends CI_Model {
 
     public function _Code($tables,$kolom,$str){
        
