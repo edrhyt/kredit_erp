@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Data_Absensi extends CI_Controller {
+class Data_absensi extends CI_Controller {
 
 	var $table = "absensi";
 	var $pk = "id_absensi";
@@ -160,7 +160,7 @@ class Data_Absensi extends CI_Controller {
 			$data = $this->getNormalizeDailyAbsensi($date, FALSE);
 			// $data = array('HH' => 'HHH');
 		
-			$this->load->library('pdf');
+			$this->load->library('Pdf');
 		
 			$this->pdf->setPaper('A4', 'portrait');
 			$this->pdf->filename = 'laporan-absensi-'.$date.'.pdf';
@@ -176,7 +176,7 @@ class Data_Absensi extends CI_Controller {
 			
 			// $this->template->load('layout_main', 'kepegawaian/absensi/laporan', $data);
 		
-			$this->load->library('pdf');
+			$this->load->library('Pdf');
 		
 			$this->pdf->setPaper('A4', 'landscape');
 			$this->pdf->filename = 'laporan-absensi-'.date('m-Y', strtotime($_GET['date'])).'.pdf';

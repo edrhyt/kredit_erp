@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class SO extends CI_Controller {
+class So extends CI_Controller {
 
 	var $table   = "tb_surat_order";
     var $tables  = "tb_barang_so";

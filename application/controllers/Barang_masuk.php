@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Barang_Masuk extends CI_Controller {
+class Barang_masuk extends CI_Controller {
 
     var $table   = "tb_inventory_barang";
     var $pk      = "id_barang";

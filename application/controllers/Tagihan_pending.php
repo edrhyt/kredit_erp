@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Tagihan_Pending extends CI_Controller {
+class Tagihan_pending extends CI_Controller {
 
 	public function index()
 	{

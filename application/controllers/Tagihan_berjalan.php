@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Tagihan_Berjalan extends CI_Controller {
+class Tagihan_berjalan extends CI_Controller {
 
 	public function index()
 	{
